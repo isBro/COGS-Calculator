@@ -36,10 +36,6 @@ namespace COGS_Calculator
             addMenu.MdiParent = this;
             addMenu.Show();
 
-            
-            
-            
-
         }
 
         private void openMenuClicked(object sender, EventArgs e)
