@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace COGS_Calculator.Classes
 {
-    public class Item
+    public class Ingredient
     {
         public string Name { get; set; }
         public float Quantity { get; set; }

@@ -14,7 +14,7 @@ namespace COGS_Calculator.Classes
         }
 
 
-        public void addIngredients(Item item)
+        public void addIngredients(Ingredient item)
         {
             if (item != null) { 
             Menu_Item.Ingredients.Add(item);

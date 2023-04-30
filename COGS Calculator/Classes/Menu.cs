@@ -9,14 +9,14 @@ namespace COGS_Calculator.Classes
     public class Menu
     {
 
-        public List<Menu_Item> Items;
+        public List<Menu_Item> MenuItems = new();
 
-        public void addMenuItem(Menu_Item item)
+        public void addMenuItem(Menu_Item menuItem)
         {
-            Items.Add(item);
+            MenuItems.Add(menuItem);
         }
 
-        public Dictionary<Menu_Item, int> ItemsAndQuantities = new Dictionary<Menu_Item, int>();
+        public Dictionary<Menu_Item, int> ItemsAndQuantities = new();
 
         public void CalculateQ(List<Menu_Item> items, int headCount) { 
         

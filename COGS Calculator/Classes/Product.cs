@@ -9,7 +9,7 @@ namespace COGS_Calculator.Classes
     public abstract class Product
     {
         public string  Name { get; set; }
-        public static List<Item> Ingredients;
+        public static List<Ingredient> Ingredients = new();
         public bool IsPopular;
 
 
