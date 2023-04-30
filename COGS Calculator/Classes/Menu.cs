@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace COGS_Calculator.Classes
 {
-    internal class Menu
+    public class Menu
     {
 
         public List<Menu_Item> Items;
@@ -16,7 +16,7 @@ namespace COGS_Calculator.Classes
             Items.Add(item);
         }
 
-        public Dictionary<Menu_Item, int> Quantities;
+        public Dictionary<Menu_Item, int> ItemsAndQuantities = new Dictionary<Menu_Item, int>();
 
         public void CalculateQ(List<Menu_Item> items, int headCount) { 
         
