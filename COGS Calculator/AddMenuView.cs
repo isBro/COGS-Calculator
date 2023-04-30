@@ -16,5 +16,10 @@ namespace COGS_Calculator
         {
             InitializeComponent();
         }
+
+        private void AddMenuView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
