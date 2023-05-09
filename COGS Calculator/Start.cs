@@ -17,16 +17,24 @@ namespace COGS_Calculator
 
         private void manageMenuClicked(object sender, EventArgs e)
         {
-
+            ManageMenuView menuView = new();
+            menuView.MdiParent = this;
+            menuView.Show();
         }
 
         private void manageIngredientsClicked(object sender, EventArgs e)
         {
-
+            ManageIngredientsView ingredientsView = new();
+            ingredientsView.MdiParent = this;
+            ingredientsView.Show();
         }
 
         private void manageItemsClicked(object sender, EventArgs e)
         {
+
+            ManageMenuItemView menuItemView = new();
+            menuItemView.MdiParent = this;
+            menuItemView.Show();
 
         }
 
@@ -40,7 +48,9 @@ namespace COGS_Calculator
 
         private void openMenuClicked(object sender, EventArgs e)
         {
-
+            OpenMenuView openMenu = new();
+            openMenu.MdiParent = this;
+            openMenu.Show();
         }
     }
 }
