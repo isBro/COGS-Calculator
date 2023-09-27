@@ -11,7 +11,7 @@ namespace COGS_Calculator.Classes
 
         public List<Menu_Item> MenuItems = new();
 
-        public void addMenuItem(Menu_Item menuItem)
+        public void AddMenuItem(Menu_Item menuItem)
         {
             MenuItems.Add(menuItem);
         }
