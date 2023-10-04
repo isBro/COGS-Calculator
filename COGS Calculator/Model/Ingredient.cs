@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,19 +11,26 @@ namespace COGS_Calculator.Classes
     public class Ingredient
     {
 
-        public Ingredient(string name, float quantity, string uoM)
+        
+
+        public Ingredient(string name, float quantity, string uoM, float unitCost)
         {
+
             Name = name;
             Quantity = quantity;
             UoM = uoM;
+            UnitCost = unitCost;
         }
 
+        public int Id { get; set; }
         public string Name { get; set; }
-        public float Quantity { get; set; }
+        public double Quantity { get; set; }
+
+        public double MenuItemYield { get; set; }
 
         public string UoM { get; set; }
 
-        public float UnitCost { get; set; } 
+        public double UnitCost { get; set; } 
 
     }
 }

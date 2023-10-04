@@ -3,33 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using COGS_Calculator.Services;
 
 namespace COGS_Calculator.Classes
 {
-    public class Menu_Item : Product 
+    public class Menu_Item : Product
     {
-        public float TotalCost { get; set; }
-        public float CalculateMenuItemCost() {
+        public double TotalCost { get; set; }
 
-            return TotalCost;
-        
-        
-        }
+        public string Notes { get; set; }
+
+        public int Quantity { get; set; }
+
         public Menu_Item(string name) {
             Name = name;
-            
-        
+            Quantity = 1;
+
         }
 
-        
-
-
-        public void addIngredients(Ingredient item)
+       
+        public void addIngredient(Ingredient item, double quantity, string uoM)
         {
-            if (item != null) { 
-            Menu_Item.Ingredients.Add(item);
-                TotalCost += item.UnitCost;
-            
+
+
+            if (item != null) {
+
+                if (item.UoM == uoM)
+                {
+                    item.MenuItemYield = quantity;
+
+                    Menu_Item.Ingredients.Add(item);
+
+                    TotalCost += (item.UnitCost * item.MenuItemYield);
+                }
+
+                else
+                {
+                    item.MenuItemYield = MenuServices.OzConversion(quantity, uoM, item.UoM);
+
+                    Menu_Item.Ingredients.Add(item);
+
+                    TotalCost += (item.UnitCost * item.MenuItemYield);
+                }
+            }
+
+        }
+
+
+        public void RemoveIngredient(int id)
+        {
+            foreach (Ingredient item in Ingredients)
+            {
+                if (item.Id == id)
+                {
+                    Ingredients.Remove(item);
+                    TotalCost -= (item.UnitCost * item.MenuItemYield);
+                }
             }
         }
 
@@ -37,6 +66,16 @@ namespace COGS_Calculator.Classes
         {
             return base.ToString() + $" = {TotalCost}";
         }
-
     }
+
+
+
+
+
+
+
+
+       
+
+    
 }

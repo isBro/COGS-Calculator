@@ -11,7 +11,7 @@ namespace COGS_Calculator.Classes
         public string  Name { get; set; }
         public static List<Ingredient> Ingredients = new();
         public bool IsPopular;
-
+        
 
     }
 }
