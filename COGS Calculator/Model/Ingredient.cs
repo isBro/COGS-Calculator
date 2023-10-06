@@ -13,13 +13,14 @@ namespace COGS_Calculator.Classes
 
         
 
-        public Ingredient(string name, float quantity, string uoM, float unitCost)
+        public Ingredient(string name, double quantity, string uoM, double unitCost, string category)
         {
 
             Name = name;
             Quantity = quantity;
             UoM = uoM;
             UnitCost = unitCost;
+            Category = category;
         }
 
         public int Id { get; set; }
@@ -31,6 +32,8 @@ namespace COGS_Calculator.Classes
         public string UoM { get; set; }
 
         public double UnitCost { get; set; } 
+
+        public string Category { get; set; }
 
     }
 }

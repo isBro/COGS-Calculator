@@ -24,9 +24,9 @@ namespace COGS_Calculator.Classes
        
         public void addIngredient(Ingredient item, double quantity, string uoM)
         {
+            // need logic to avoid duplicate ingredients added. see methods below 
 
-
-            if (item != null) {
+            if (item != null) { 
 
                 if (item.UoM == uoM)
                 {
@@ -60,6 +60,17 @@ namespace COGS_Calculator.Classes
                     TotalCost -= (item.UnitCost * item.MenuItemYield);
                 }
             }
+        }
+
+
+        public void FindIngredient(int id)
+        {
+
+        }
+
+        public void UpdateIngredient(Ingredient ingredient)
+        {
+
         }
 
         public override string ToString()

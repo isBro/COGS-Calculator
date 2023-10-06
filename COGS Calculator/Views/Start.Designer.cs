@@ -28,90 +28,86 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editMenusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editIngredientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.manageMenuItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
-            this.SuspendLayout();
+            menuStrip1 = new MenuStrip();
+            newToolStripMenuItem = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
+            adminToolStripMenuItem = new ToolStripMenuItem();
+            editMenusToolStripMenuItem = new ToolStripMenuItem();
+            editIngredientsToolStripMenuItem = new ToolStripMenuItem();
+            manageMenuItemsToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // menuStrip1
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.openToolStripMenuItem,
-            this.adminToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1688, 28);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { newToolStripMenuItem, openToolStripMenuItem, adminToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new Padding(5, 2, 0, 2);
+            menuStrip1.Size = new Size(1477, 24);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip1";
             // 
             // newToolStripMenuItem
             // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
-            this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newMenuClicked);
+            newToolStripMenuItem.Name = "newToolStripMenuItem";
+            newToolStripMenuItem.Size = new Size(43, 20);
+            newToolStripMenuItem.Text = "New";
+            newToolStripMenuItem.Click += newMenuClicked;
             // 
             // openToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openMenuClicked);
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(48, 20);
+            openToolStripMenuItem.Text = "Open";
+            openToolStripMenuItem.Click += openMenuClicked;
             // 
             // adminToolStripMenuItem
             // 
-            this.adminToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editMenusToolStripMenuItem,
-            this.editIngredientsToolStripMenuItem,
-            this.manageMenuItemsToolStripMenuItem});
-            this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
-            this.adminToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
-            this.adminToolStripMenuItem.Text = "Admin";
+            adminToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { editMenusToolStripMenuItem, editIngredientsToolStripMenuItem, manageMenuItemsToolStripMenuItem });
+            adminToolStripMenuItem.Name = "adminToolStripMenuItem";
+            adminToolStripMenuItem.Size = new Size(55, 20);
+            adminToolStripMenuItem.Text = "Admin";
             // 
             // editMenusToolStripMenuItem
             // 
-            this.editMenusToolStripMenuItem.Name = "editMenusToolStripMenuItem";
-            this.editMenusToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
-            this.editMenusToolStripMenuItem.Text = "Manage Menus";
-            this.editMenusToolStripMenuItem.Click += new System.EventHandler(this.manageMenuClicked);
+            editMenusToolStripMenuItem.Name = "editMenusToolStripMenuItem";
+            editMenusToolStripMenuItem.Size = new Size(183, 22);
+            editMenusToolStripMenuItem.Text = "Manage Menus";
+            editMenusToolStripMenuItem.Click += manageMenuClicked;
             // 
             // editIngredientsToolStripMenuItem
             // 
-            this.editIngredientsToolStripMenuItem.Name = "editIngredientsToolStripMenuItem";
-            this.editIngredientsToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
-            this.editIngredientsToolStripMenuItem.Text = "Manage  Ingredients";
-            this.editIngredientsToolStripMenuItem.Click += new System.EventHandler(this.manageIngredientsClicked);
+            editIngredientsToolStripMenuItem.Name = "editIngredientsToolStripMenuItem";
+            editIngredientsToolStripMenuItem.Size = new Size(183, 22);
+            editIngredientsToolStripMenuItem.Text = "Manage  Ingredients";
+            editIngredientsToolStripMenuItem.Click += manageIngredientsClicked;
             // 
             // manageMenuItemsToolStripMenuItem
             // 
-            this.manageMenuItemsToolStripMenuItem.Name = "manageMenuItemsToolStripMenuItem";
-            this.manageMenuItemsToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
-            this.manageMenuItemsToolStripMenuItem.Text = "Manage Menu Items";
-            this.manageMenuItemsToolStripMenuItem.Click += new System.EventHandler(this.manageItemsClicked);
+            manageMenuItemsToolStripMenuItem.Name = "manageMenuItemsToolStripMenuItem";
+            manageMenuItemsToolStripMenuItem.Size = new Size(183, 22);
+            manageMenuItemsToolStripMenuItem.Text = "Manage Menu Items";
+            manageMenuItemsToolStripMenuItem.Click += manageItemsClicked;
             // 
             // Start
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1688, 754);
-            this.Controls.Add(this.menuStrip1);
-            this.IsMdiContainer = true;
-            this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Start";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Start_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1477, 566);
+            Controls.Add(menuStrip1);
+            IsMdiContainer = true;
+            MainMenuStrip = menuStrip1;
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "Start";
+            Text = "Form1";
+            Activated += StartViewActivated;
+            Load += Start_Load;
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
