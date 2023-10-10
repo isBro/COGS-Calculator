@@ -28,59 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.CostTextBox = new TextBox();
-            this.QuantityTextBox = new TextBox();
-            this.UoMTextBox = new TextBox();
-            this.IngredientNameTextBox = new TextBox();
-            this.IdTextBox = new TextBox();
+            CostTextBox = new TextBox();
+            QuantityTextBox = new TextBox();
+            UoMTextBox = new TextBox();
+            IngredientNameTextBox = new TextBox();
+            IdTextBox = new TextBox();
             label1 = new Label();
-            this.IngredientsDataGridView1 = new DataGridView();
-            this.SaveIngredientButton = new Button();
-            this.BackButton = new Button();
-            this.EditIngredientButton = new Button();
+            IngredientsDataGridView1 = new DataGridView();
+            SaveIngredientButton = new Button();
+            BackButton = new Button();
+            EditIngredientButton = new Button();
             DeleteIngredientButton = new Button();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
             label6 = new Label();
             label7 = new Label();
-            ((System.ComponentModel.ISupportInitialize)this.IngredientsDataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)IngredientsDataGridView1).BeginInit();
             SuspendLayout();
             // 
             // CostTextBox
             // 
-            this.CostTextBox.Location = new Point(124, 208);
-            this.CostTextBox.Name = "CostTextBox";
-            this.CostTextBox.Size = new Size(100, 23);
-            this.CostTextBox.TabIndex = 0;
+            CostTextBox.Location = new Point(124, 208);
+            CostTextBox.Name = "CostTextBox";
+            CostTextBox.Size = new Size(100, 23);
+            CostTextBox.TabIndex = 0;
             // 
             // QuantityTextBox
             // 
-            this.QuantityTextBox.Location = new Point(124, 170);
-            this.QuantityTextBox.Name = "QuantityTextBox";
-            this.QuantityTextBox.Size = new Size(100, 23);
-            this.QuantityTextBox.TabIndex = 1;
+            QuantityTextBox.Location = new Point(124, 170);
+            QuantityTextBox.Name = "QuantityTextBox";
+            QuantityTextBox.Size = new Size(100, 23);
+            QuantityTextBox.TabIndex = 1;
             // 
             // UoMTextBox
             // 
-            this.UoMTextBox.Location = new Point(124, 123);
-            this.UoMTextBox.Name = "UoMTextBox";
-            this.UoMTextBox.Size = new Size(100, 23);
-            this.UoMTextBox.TabIndex = 3;
+            UoMTextBox.Location = new Point(124, 123);
+            UoMTextBox.Name = "UoMTextBox";
+            UoMTextBox.Size = new Size(100, 23);
+            UoMTextBox.TabIndex = 3;
             // 
             // IngredientNameTextBox
             // 
-            this.IngredientNameTextBox.Location = new Point(225, 70);
-            this.IngredientNameTextBox.Name = "IngredientNameTextBox";
-            this.IngredientNameTextBox.Size = new Size(100, 23);
-            this.IngredientNameTextBox.TabIndex = 4;
+            IngredientNameTextBox.Location = new Point(225, 70);
+            IngredientNameTextBox.Name = "IngredientNameTextBox";
+            IngredientNameTextBox.Size = new Size(100, 23);
+            IngredientNameTextBox.TabIndex = 4;
             // 
             // IdTextBox
             // 
-            this.IdTextBox.Location = new Point(124, 70);
-            this.IdTextBox.Name = "IdTextBox";
-            this.IdTextBox.Size = new Size(38, 23);
-            this.IdTextBox.TabIndex = 5;
+            IdTextBox.Location = new Point(124, 70);
+            IdTextBox.Name = "IdTextBox";
+            IdTextBox.Size = new Size(38, 23);
+            IdTextBox.TabIndex = 5;
             // 
             // label1
             // 
@@ -93,39 +93,40 @@
             // 
             // IngredientsDataGridView1
             // 
-            this.IngredientsDataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.IngredientsDataGridView1.Location = new Point(411, 57);
-            this.IngredientsDataGridView1.Name = "IngredientsDataGridView1";
-            this.IngredientsDataGridView1.RowTemplate.Height = 25;
-            this.IngredientsDataGridView1.Size = new Size(436, 225);
-            this.IngredientsDataGridView1.TabIndex = 7;
+            IngredientsDataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            IngredientsDataGridView1.Location = new Point(411, 57);
+            IngredientsDataGridView1.Name = "IngredientsDataGridView1";
+            IngredientsDataGridView1.RowTemplate.Height = 25;
+            IngredientsDataGridView1.Size = new Size(436, 225);
+            IngredientsDataGridView1.TabIndex = 7;
             // 
             // SaveIngredientButton
             // 
-            this.SaveIngredientButton.Location = new Point(124, 298);
-            this.SaveIngredientButton.Name = "SaveIngredientButton";
-            this.SaveIngredientButton.Size = new Size(75, 23);
-            this.SaveIngredientButton.TabIndex = 8;
-            this.SaveIngredientButton.Text = "Save";
-            this.SaveIngredientButton.UseVisualStyleBackColor = true;
+            SaveIngredientButton.Location = new Point(124, 298);
+            SaveIngredientButton.Name = "SaveIngredientButton";
+            SaveIngredientButton.Size = new Size(75, 23);
+            SaveIngredientButton.TabIndex = 8;
+            SaveIngredientButton.Text = "Save";
+            SaveIngredientButton.UseVisualStyleBackColor = true;
+            SaveIngredientButton.Click += SaveIngredientButton_Click;
             // 
             // BackButton
             // 
-            this.BackButton.Location = new Point(16, 10);
-            this.BackButton.Name = "BackButton";
-            this.BackButton.Size = new Size(75, 23);
-            this.BackButton.TabIndex = 9;
-            this.BackButton.Text = "Back";
-            this.BackButton.UseVisualStyleBackColor = true;
+            BackButton.Location = new Point(16, 10);
+            BackButton.Name = "BackButton";
+            BackButton.Size = new Size(75, 23);
+            BackButton.TabIndex = 9;
+            BackButton.Text = "Back";
+            BackButton.UseVisualStyleBackColor = true;
             // 
             // EditIngredientButton
             // 
-            this.EditIngredientButton.Location = new Point(461, 298);
-            this.EditIngredientButton.Name = "EditIngredientButton";
-            this.EditIngredientButton.Size = new Size(75, 23);
-            this.EditIngredientButton.TabIndex = 10;
-            this.EditIngredientButton.Text = "Edit";
-            this.EditIngredientButton.UseVisualStyleBackColor = true;
+            EditIngredientButton.Location = new Point(461, 298);
+            EditIngredientButton.Name = "EditIngredientButton";
+            EditIngredientButton.Size = new Size(75, 23);
+            EditIngredientButton.TabIndex = 10;
+            EditIngredientButton.Text = "Edit";
+            EditIngredientButton.UseVisualStyleBackColor = true;
             // 
             // DeleteIngredientButton
             // 
@@ -192,19 +193,19 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(DeleteIngredientButton);
-            Controls.Add(this.EditIngredientButton);
-            Controls.Add(this.BackButton);
-            Controls.Add(this.SaveIngredientButton);
-            Controls.Add(this.IngredientsDataGridView1);
+            Controls.Add(EditIngredientButton);
+            Controls.Add(BackButton);
+            Controls.Add(SaveIngredientButton);
+            Controls.Add(IngredientsDataGridView1);
             Controls.Add(label1);
-            Controls.Add(this.IdTextBox);
-            Controls.Add(this.IngredientNameTextBox);
-            Controls.Add(this.UoMTextBox);
-            Controls.Add(this.QuantityTextBox);
-            Controls.Add(this.CostTextBox);
+            Controls.Add(IdTextBox);
+            Controls.Add(IngredientNameTextBox);
+            Controls.Add(UoMTextBox);
+            Controls.Add(QuantityTextBox);
+            Controls.Add(CostTextBox);
             Name = "ManageIngredientsView";
             Text = "ManageIngredientsView";
-            ((System.ComponentModel.ISupportInitialize)this.IngredientsDataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)IngredientsDataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

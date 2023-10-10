@@ -13,7 +13,7 @@ namespace COGS_Calculator.Classes
 
         public string Notes { get; set; }
 
-        public int Quantity { get; set; }
+        public int Quantity;
 
         public Menu_Item(string name) {
             Name = name;
@@ -26,26 +26,33 @@ namespace COGS_Calculator.Classes
         {
             // need logic to avoid duplicate ingredients added. see methods below 
 
-            if (item != null) { 
+            if (!FindIngredient(item.Id)){
 
-                if (item.UoM == uoM)
+                if (item != null)
                 {
-                    item.MenuItemYield = quantity;
 
-                    Menu_Item.Ingredients.Add(item);
+                    if (item.UoM == uoM)
+                    {
+                        item.MenuItemYield = quantity;
 
-                    TotalCost += (item.UnitCost * item.MenuItemYield);
+                        Menu_Item.Ingredients.Add(item);
+
+                        TotalCost += (item.UnitCost * item.MenuItemYield);
+                    }
+
+                    else
+                    {
+                        item.MenuItemYield = MenuServices.OzConversion(quantity, uoM, item.UoM);
+
+                        Menu_Item.Ingredients.Add(item);
+
+                        TotalCost += (item.UnitCost * item.MenuItemYield);
+                    }
                 }
 
-                else
-                {
-                    item.MenuItemYield = MenuServices.OzConversion(quantity, uoM, item.UoM);
 
-                    Menu_Item.Ingredients.Add(item);
-
-                    TotalCost += (item.UnitCost * item.MenuItemYield);
-                }
             }
+
 
         }
 
@@ -63,14 +70,29 @@ namespace COGS_Calculator.Classes
         }
 
 
-        public void FindIngredient(int id)
+        public bool FindIngredient(int id)
         {
+            foreach (var item in Ingredients)
+            {
+                if (item.Id.Equals(id))
+                {
+                    return true;
+                }
+               
+            }
 
+            return false;
         }
 
         public void UpdateIngredient(Ingredient ingredient)
         {
-
+            if (FindIngredient(ingredient.Id))
+            {
+                foreach(var item in Ingredients)
+                {
+                    //fix logic here to relace 
+                }
+            }
         }
 
         public override string ToString()

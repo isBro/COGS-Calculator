@@ -16,5 +16,10 @@ namespace COGS_Calculator
         {
             InitializeComponent();
         }
+
+        private void SaveIngredientButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

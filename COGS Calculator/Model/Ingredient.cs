@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using MySqlConnector;
+using MySql;
 
 namespace COGS_Calculator.Classes
 {
@@ -23,6 +25,7 @@ namespace COGS_Calculator.Classes
             Category = category;
         }
 
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public double Quantity { get; set; }
