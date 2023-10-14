@@ -44,6 +44,9 @@
             label4 = new Label();
             label6 = new Label();
             label7 = new Label();
+            NewIngredientButton = new Button();
+            CategoryLabel = new Label();
+            CategoryTextBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)IngredientsDataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -118,6 +121,7 @@
             BackButton.TabIndex = 9;
             BackButton.Text = "Back";
             BackButton.UseVisualStyleBackColor = true;
+            BackButton.Click += BackButton_Click;
             // 
             // EditIngredientButton
             // 
@@ -182,11 +186,40 @@
             label7.TabIndex = 17;
             label7.Text = "Unit Cost";
             // 
+            // NewIngredientButton
+            // 
+            NewIngredientButton.Location = new Point(186, 10);
+            NewIngredientButton.Name = "NewIngredientButton";
+            NewIngredientButton.Size = new Size(75, 23);
+            NewIngredientButton.TabIndex = 18;
+            NewIngredientButton.Text = "New";
+            NewIngredientButton.UseVisualStyleBackColor = true;
+            NewIngredientButton.Click += NewIngredientButton_Click;
+            // 
+            // CategoryLabel
+            // 
+            CategoryLabel.AutoSize = true;
+            CategoryLabel.Location = new Point(62, 252);
+            CategoryLabel.Name = "CategoryLabel";
+            CategoryLabel.Size = new Size(55, 15);
+            CategoryLabel.TabIndex = 33;
+            CategoryLabel.Text = "Category";
+            // 
+            // CategoryTextBox
+            // 
+            CategoryTextBox.Location = new Point(124, 249);
+            CategoryTextBox.Name = "CategoryTextBox";
+            CategoryTextBox.Size = new Size(100, 23);
+            CategoryTextBox.TabIndex = 32;
+            // 
             // ManageIngredientsView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 450);
+            Controls.Add(CategoryLabel);
+            Controls.Add(CategoryTextBox);
+            Controls.Add(NewIngredientButton);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label4);
@@ -205,6 +238,7 @@
             Controls.Add(CostTextBox);
             Name = "ManageIngredientsView";
             Text = "ManageIngredientsView";
+            Load += ManageIngredientsViewLoaded;
             ((System.ComponentModel.ISupportInitialize)IngredientsDataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -231,5 +265,8 @@
         private Label label5;
         private Label label6;
         private Label label7;
+        private Button NewIngredientButton;
+        private Label CategoryLabel;
+        private TextBox CategoryTextBox;
     }
 }
