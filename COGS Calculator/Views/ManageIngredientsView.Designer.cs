@@ -80,6 +80,7 @@
             // 
             // IdTextBox
             // 
+            IdTextBox.Enabled = false;
             IdTextBox.Location = new Point(124, 70);
             IdTextBox.Name = "IdTextBox";
             IdTextBox.Size = new Size(38, 23);
@@ -96,12 +97,19 @@
             // 
             // IngredientsDataGridView1
             // 
+            IngredientsDataGridView1.AllowUserToAddRows = false;
+            IngredientsDataGridView1.AllowUserToDeleteRows = false;
             IngredientsDataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             IngredientsDataGridView1.Location = new Point(411, 57);
+            IngredientsDataGridView1.MultiSelect = false;
             IngredientsDataGridView1.Name = "IngredientsDataGridView1";
+            IngredientsDataGridView1.ReadOnly = true;
             IngredientsDataGridView1.RowTemplate.Height = 25;
+            IngredientsDataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             IngredientsDataGridView1.Size = new Size(436, 225);
             IngredientsDataGridView1.TabIndex = 7;
+            IngredientsDataGridView1.CellClick += IngredientView_Row_Clicked;
+            IngredientsDataGridView1.SelectionChanged += Ingredient_View_Selection_Changed;
             // 
             // SaveIngredientButton
             // 
@@ -140,6 +148,7 @@
             DeleteIngredientButton.TabIndex = 11;
             DeleteIngredientButton.Text = "Delete";
             DeleteIngredientButton.UseVisualStyleBackColor = true;
+            DeleteIngredientButton.Click += DeleteIngredientButton_Click;
             // 
             // label2
             // 

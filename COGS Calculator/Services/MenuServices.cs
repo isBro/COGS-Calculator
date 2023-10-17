@@ -10,7 +10,7 @@ namespace COGS_Calculator.Services
     {
        
 
-        public static double OzConversion(double quantity, string startingUoM, string convertedUoM)
+        public static double ToOzConversion(double quantity, string startingUoM)
         {
             double converted_quantity = 0;
 
@@ -22,6 +22,9 @@ namespace COGS_Calculator.Services
                     break;
                 case "g":
                     converted_quantity = quantity / 28.35;
+                    break;
+                case "oz":
+                    converted_quantity = quantity;
                     break;
 
             }

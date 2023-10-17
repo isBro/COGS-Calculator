@@ -28,7 +28,7 @@ namespace COGS_Calculator
 
         private void manageIngredientsClicked(object sender, EventArgs e)
         {
-            DB_Connection.SyncIngredients();
+            
             ManageIngredientsView ingredientsView = new();
             ingredientsView.MdiParent = this;
             ingredientsView.Show();

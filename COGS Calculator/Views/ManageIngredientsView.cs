@@ -20,11 +20,24 @@ namespace COGS_Calculator
             InitializeComponent();
         }
 
+        public static int Ingredient_Id;
+        public bool selectionChanged = false;
+        public Ingredient ingredient = new Ingredient();
+
 
 
         private void SaveIngredientButton_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                DB_Connection.UpdateIngredient(Ingredient_Id, IngredientNameTextBox.Text, double.Parse(QuantityTextBox.Text), UoMTextBox.Text , double.Parse(CostTextBox.Text), CategoryTextBox.Text);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            Reload_Data();
         }
 
         private void NewIngredientButton_Click(object sender, EventArgs e)
@@ -44,19 +57,61 @@ namespace COGS_Calculator
 
         private void Reload_Data()
         {
-            
 
+            DB_Connection.SyncIngredients();
             var IngredientsBindingList = new BindingList<Ingredient>(DB_Connection.All_Ingredients);
             var IngredientsSource = new BindingSource(IngredientsBindingList, null);
 
             IngredientsDataGridView1.DataSource = IngredientsSource;
 
+           
+
         }
 
         private void ManageIngredientsViewLoaded(object sender, EventArgs e)
         {
-            
             Reload_Data();
+
+        }
+
+        private void DeleteIngredientButton_Click(object sender, EventArgs e)
+        {
+            string message = "This cannot be undone, are you sure you want to delete?";
+            DialogResult result = MessageBox.Show(message, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                Ingredient_Id = (int)IngredientsDataGridView1.SelectedCells[0].Value;
+                DB_Connection.DeleteIngredient(Ingredient_Id);
+                Reload_Data();
+            }
+        }
+
+        private void Ingredient_View_Selection_Changed(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void IngredientView_Row_Clicked(object sender, DataGridViewCellEventArgs e)
+        {
+
+            Ingredient_Id = int.Parse($"{IngredientsDataGridView1.SelectedCells[0].Value}");
+
+
+            ingredient = DB_Connection.GetIngredient(Ingredient_Id);
+
+            IdTextBox.Text = Ingredient_Id.ToString();
+            IngredientNameTextBox.Text = ingredient.Name;
+            QuantityTextBox.Text = ingredient.Quantity.ToString();
+            UoMTextBox.Text = ingredient.UoM;
+            CostTextBox.Text = ingredient.UnitCost.ToString();
+            CategoryTextBox.Text = ingredient.Category;
+
+
+
+
+
         }
     }
 }

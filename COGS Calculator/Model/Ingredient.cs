@@ -34,8 +34,6 @@ namespace COGS_Calculator.Classes
         public string Name { get; set; }
         public double Quantity { get; set; }
 
-        public double MenuItemYield { get; set; }
-
         public string UoM { get; set; }
 
         public double UnitCost { get; set; } 

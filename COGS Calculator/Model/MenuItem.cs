@@ -9,6 +9,8 @@ namespace COGS_Calculator.Classes
 {
     public class Menu_Item : Product
     {
+
+        public int Id { get; set; }
         public double TotalCost { get; set; }
 
         public string Notes { get; set; }
@@ -17,56 +19,37 @@ namespace COGS_Calculator.Classes
 
         public Menu_Item(string name) {
             Name = name;
-            Quantity = 1;
 
         }
 
-       
+        public Dictionary<String, double> Recipe = new Dictionary<String, double>();
+
+
+
         public void addIngredient(Ingredient item, double quantity, string uoM)
         {
             // need logic to avoid duplicate ingredients added. see methods below 
-
-            if (!FindIngredient(item.Id)){
-
-                if (item != null)
-                {
-
-                    if (item.UoM == uoM)
-                    {
-                        item.MenuItemYield = quantity;
-
-                        Menu_Item.Ingredients.Add(item);
-
-                        TotalCost += (item.UnitCost * item.MenuItemYield);
-                    }
-
-                    else
-                    {
-                        item.MenuItemYield = MenuServices.OzConversion(quantity, uoM, item.UoM);
-
-                        Menu_Item.Ingredients.Add(item);
-
-                        TotalCost += (item.UnitCost * item.MenuItemYield);
-                    }
-                }
-
+            if (!FindIngredient(item.Id))
+            
+            {
+                Ingredients.Add(item);
+                Recipe[item.Name] = MenuServices.ToOzConversion(quantity, uoM);
 
             }
+           
 
+
+        }
+
+        public void UpdateIngredient(Ingredient item, double quantity, string uoM)
+        {
 
         }
 
 
         public void RemoveIngredient(int id)
         {
-            foreach (Ingredient item in Ingredients)
-            {
-                if (item.Id == id)
-                {
-                    Ingredients.Remove(item);
-                    TotalCost -= (item.UnitCost * item.MenuItemYield);
-                }
-            }
+
         }
 
 

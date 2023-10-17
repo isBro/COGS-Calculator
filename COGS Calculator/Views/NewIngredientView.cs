@@ -20,13 +20,17 @@ namespace COGS_Calculator.Views
 
         private void SaveIngredientButton_Click(object sender, EventArgs e)
         {
-            //need to add eception handling here
+            //need to add exception handling here
 
             double quantity = double.Parse(QuantityTextBox.Text);
             double cost = double.Parse(CostTextBox.Text);
 
             DB_Connection.InsertIngredient(IngredientNameTextBox.Text, quantity, UoMTextBox.Text, cost, CategoryTextBox.Text);
-
+            
+            ManageIngredientsView manageIngredientsView = new ManageIngredientsView();
+            manageIngredientsView.MdiParent = this.ParentForm.ParentForm;
+            manageIngredientsView.Show();
+            this.Close();
         }
 
         private void BackButton_Click(object sender, EventArgs e)
