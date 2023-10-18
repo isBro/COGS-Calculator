@@ -8,6 +8,7 @@ using MySqlConnector;
 using COGS_Calculator.Classes;
 using System.Xml.Linq;
 using System.Diagnostics.Eventing.Reader;
+using System.Security.AccessControl;
 
 namespace COGS_Calculator.Services
 {
@@ -57,6 +58,16 @@ namespace COGS_Calculator.Services
             }
 
             return 0;
+        }
+
+        public static bool b_check(int i)
+        {
+            if (i == 1)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         #region Ingredient Methods
@@ -195,9 +206,6 @@ namespace COGS_Calculator.Services
             MySqlCommand Update_cmd = new(updateString, Conn);
 
 
-
-         
-
                 foreach (Ingredient item in All_Ingredients)
                 {
                     if (item.Id == id)
@@ -317,12 +325,11 @@ namespace COGS_Calculator.Services
                     newIngredient.UnitCost = double.Parse(currentCost);
                     newIngredient.Category = currentCategory;
 
-                    Console.WriteLine(newIngredient.ToString());
+                    //Console.WriteLine(newIngredient.ToString());
 
                     if (!CheckIngredient(newIngredient.Id, newIngredient.Name))
                     {
                         All_Ingredients.Add(newIngredient);
-                        Console.WriteLine(newIngredient.ToString());
                     }
 
 
@@ -364,22 +371,48 @@ namespace COGS_Calculator.Services
 
             }
 
+            //create table from menu item that will connect to the recipe dictionary 
+
            
         }
 
-        public static void DeleteMenuItem()
+        public static void DeleteMenuItem(int id)
         {
+
+            try
+            {
+                string deleteMenuItem = $"DELETE FROM menu_item WHERE Id = {id}";
+                MySqlCommand cmd = new(deleteMenuItem, Conn);
+                cmd.ExecuteNonQuery();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            // add exception handling 
+          
 
         }
 
-        public static void UpdateMenuItem()
+        public static void UpdateMenuItem(int id, double cost, bool isPopular, Dictionary<string, double> recipe)
         {
 
+
+            String updateMenuString = "UPDATE menu_item SET ";
         }
 
-        public static void CheckMenuItem(int id, string name)
+        public static bool CheckMenuItem(int id)
         {
+            foreach (Menu_Item item in All_Menu_Items)
+            {
+                if (item.Id == id )
+                {
+                    return true;
+                }
+            }
 
+            return false;
         }
 
         public static bool CheckMenuItem(string name)
@@ -414,7 +447,38 @@ namespace COGS_Calculator.Services
 
         public static void SyncMenuItems()
         {
+            string getMenuItems = "SELECT * FROM menu_item";
+            MySqlCommand cmd = new(getMenuItems, Conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
 
+            string currentId = "";
+            string currentName = "";
+            string currentTotalCost = "";
+            string currentIsPopular = "";
+
+            while (reader.Read())
+            {
+                Menu_Item newMenuItem = new Menu_Item();
+                currentId = $"{reader[0]}";
+                currentName = $"{reader[1]}";
+                currentTotalCost = $"{reader[2]}";
+                currentIsPopular = $"{reader[3]}";
+
+                newMenuItem.Id = int.Parse(currentId);
+                newMenuItem.Name = currentName;
+                newMenuItem.TotalCost = double.Parse(currentTotalCost);
+                newMenuItem.IsPopular = b_check(int.Parse(currentIsPopular));
+
+                if (!CheckMenuItem(newMenuItem.Id)){
+
+
+                    All_Menu_Items.Add(newMenuItem);
+
+                }
+
+            }
+
+            reader.Close();
         }
 
         #endregion

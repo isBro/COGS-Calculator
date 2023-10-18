@@ -10,12 +10,14 @@ namespace COGS_Calculator.Classes
     public class Menu_Item : Product
     {
 
+        public Menu_Item() { }
+
         public int Id { get; set; }
         public double TotalCost { get; set; }
 
-        public string Notes { get; set; }
+        //public string Notes { get; set; }
 
-        public int Quantity;
+        //public int Quantity;
 
         public Menu_Item(string name) {
             Name = name;
