@@ -62,22 +62,12 @@ namespace COGS_Calculator
         {
             if (AppSettings.FirstRun)
             {
-                //Ingredient avocado = new Ingredient("Avocado", 3, "oz", .85, "VEGETABLE");
-                //Ingredient bacon = new Ingredient("Bacon", 4, "oz", .45, "PROTEIN");
-                //Ingredient tomato = new Ingredient("Tomato", 3, "oz", .05, "VEGETABLE");
-                //Ingredient mesculin = new Ingredient("Mesculin", 2, "oz", .03, "VEGETABLE");
-                //Ingredient multigrain = new Ingredient("Multigrain", 5, "oz", .60, "BREAD");
 
-                //Menu_Item blat = new Menu_Item("BLAT Sandwich");
-                //blat.addIngredient(avocado, 1, avocado.UoM);
-                //blat.addIngredient(bacon, 1, bacon.UoM);
-                //blat.addIngredient(tomato, 1, tomato.UoM);
-                //blat.addIngredient(mesculin, 1, mesculin.UoM);
-                //blat.addIngredient(multigrain, 1, multigrain.UoM);
-
-
-                //Menu test_Menu = new Menu("Test Menu", 20, "Testing menus and features");
-                //test_Menu.AddMenuItem(blat);
+                DB_Connection.SyncIngredients();
+                DB_Connection.SyncMenuItems();
+                DB_Connection.SyncRecipes();
+                DB_Connection.SyncMenus();
+           
 
                 
 

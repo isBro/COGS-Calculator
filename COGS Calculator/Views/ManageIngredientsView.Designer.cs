@@ -30,7 +30,6 @@
         {
             CostTextBox = new TextBox();
             QuantityTextBox = new TextBox();
-            UoMTextBox = new TextBox();
             IngredientNameTextBox = new TextBox();
             IdTextBox = new TextBox();
             label1 = new Label();
@@ -46,7 +45,8 @@
             label7 = new Label();
             NewIngredientButton = new Button();
             CategoryLabel = new Label();
-            CategoryTextBox = new TextBox();
+            UoMComboBox = new ComboBox();
+            CategoryComboBox = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)IngredientsDataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -63,13 +63,6 @@
             QuantityTextBox.Name = "QuantityTextBox";
             QuantityTextBox.Size = new Size(100, 23);
             QuantityTextBox.TabIndex = 1;
-            // 
-            // UoMTextBox
-            // 
-            UoMTextBox.Location = new Point(124, 123);
-            UoMTextBox.Name = "UoMTextBox";
-            UoMTextBox.Size = new Size(100, 23);
-            UoMTextBox.TabIndex = 3;
             // 
             // IngredientNameTextBox
             // 
@@ -214,20 +207,30 @@
             CategoryLabel.TabIndex = 33;
             CategoryLabel.Text = "Category";
             // 
-            // CategoryTextBox
+            // UoMComboBox
             // 
-            CategoryTextBox.Location = new Point(124, 249);
-            CategoryTextBox.Name = "CategoryTextBox";
-            CategoryTextBox.Size = new Size(100, 23);
-            CategoryTextBox.TabIndex = 32;
+            UoMComboBox.FormattingEnabled = true;
+            UoMComboBox.Location = new Point(124, 123);
+            UoMComboBox.Name = "UoMComboBox";
+            UoMComboBox.Size = new Size(101, 23);
+            UoMComboBox.TabIndex = 34;
+            // 
+            // CategoryComboBox
+            // 
+            CategoryComboBox.FormattingEnabled = true;
+            CategoryComboBox.Location = new Point(125, 252);
+            CategoryComboBox.Name = "CategoryComboBox";
+            CategoryComboBox.Size = new Size(100, 23);
+            CategoryComboBox.TabIndex = 35;
             // 
             // ManageIngredientsView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 450);
+            Controls.Add(CategoryComboBox);
+            Controls.Add(UoMComboBox);
             Controls.Add(CategoryLabel);
-            Controls.Add(CategoryTextBox);
             Controls.Add(NewIngredientButton);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -242,7 +245,6 @@
             Controls.Add(label1);
             Controls.Add(IdTextBox);
             Controls.Add(IngredientNameTextBox);
-            Controls.Add(UoMTextBox);
             Controls.Add(QuantityTextBox);
             Controls.Add(CostTextBox);
             Name = "ManageIngredientsView";
@@ -259,7 +261,6 @@
 
         private TextBox CostTextBox;
         private TextBox QuantityTextBox;
-        private TextBox UoMTextBox;
         private TextBox IngredientNameTextBox;
         private TextBox IdTextBox;
         private Label label1;
@@ -276,6 +277,7 @@
         private Label label7;
         private Button NewIngredientButton;
         private Label CategoryLabel;
-        private TextBox CategoryTextBox;
+        private ComboBox UoMComboBox;
+        private ComboBox CategoryComboBox;
     }
 }

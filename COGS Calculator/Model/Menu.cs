@@ -18,6 +18,11 @@ namespace COGS_Calculator.Classes
 
 
         }
+
+        public Menu()
+        {
+
+        }
         public string MenuName { get; set; }
         public string MenuNotes { get; set; }
 

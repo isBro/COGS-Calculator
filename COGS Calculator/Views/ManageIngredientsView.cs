@@ -30,9 +30,9 @@ namespace COGS_Calculator
         {
             try
             {
-                DB_Connection.UpdateIngredient(Ingredient_Id, IngredientNameTextBox.Text, double.Parse(QuantityTextBox.Text), UoMTextBox.Text , double.Parse(CostTextBox.Text), CategoryTextBox.Text);
+                DB_Connection.UpdateIngredient(Ingredient_Id, IngredientNameTextBox.Text, double.Parse(QuantityTextBox.Text), UoMComboBox.Text, double.Parse(CostTextBox.Text), CategoryTextBox.Text);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -64,7 +64,10 @@ namespace COGS_Calculator
 
             IngredientsDataGridView1.DataSource = IngredientsSource;
 
-           
+            UoMComboBox.DataSource = MenuServices.UoMList;
+            UoMComboBox.SelectedIndex = 0;
+
+
 
         }
 
@@ -104,9 +107,9 @@ namespace COGS_Calculator
             IdTextBox.Text = Ingredient_Id.ToString();
             IngredientNameTextBox.Text = ingredient.Name;
             QuantityTextBox.Text = ingredient.Quantity.ToString();
-            UoMTextBox.Text = ingredient.UoM;
+            UoMComboBox.Text = ingredient.UoM;
             CostTextBox.Text = ingredient.UnitCost.ToString();
-            CategoryTextBox.Text = ingredient.Category;
+            CategoryComboBox.Text = ingredient.Category;
 
 
 

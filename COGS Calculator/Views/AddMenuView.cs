@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using COGS_Calculator.Classes;
+using COGS_Calculator.Model;
+using COGS_Calculator.Services;
 
 namespace COGS_Calculator
 {
@@ -17,26 +20,30 @@ namespace COGS_Calculator
             InitializeComponent();
         }
 
-        private void AddMenuView_Load(object sender, EventArgs e)
+        public Menu newMenu = new();
+
+
+        private void Save_Menu_Button_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void AddMenu_Item_Button_Click(object sender, EventArgs e)
         {
-
+            ReloadData();
         }
 
-        private void Cancel_Click(object sender, EventArgs e)
+        private void Remove_Menu_Item_Button_Click(object sender, EventArgs e)
         {
+            ReloadData();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void AddMenuView_Activated(object sender, EventArgs e)
         {
-
+            ReloadData();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void ReloadData()
         {
 
         }

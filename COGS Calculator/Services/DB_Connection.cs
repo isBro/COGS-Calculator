@@ -355,25 +355,66 @@ namespace COGS_Calculator.Services
         #region Menu_Item Methods
         public static void InsertMenuItem(string name, double totalCost, bool isPopular, Dictionary<string, double> recipe )
         {
-
-            if (!CheckMenuItem(name))
+            //// this does not work /////
+            try
             {
                 Menu_Item newMenu_Item = new(name);
                 newMenu_Item.Recipe = recipe;
+                string recipeName = $"{newMenu_Item.Name.ToLower()}";
+                string tempIngredient = "";
+                double tempIngredientQuantity = 0.00;
 
-                string insertMenuItem = $"INSERT INTO menu_item (Name, TotalCost, IsPopular) VALUES ('{name}', {totalCost}, {b_check(isPopular)});";
+                string createNewRecipe = $"CREATE TABLE {recipeName}_recipe (Ingredient VARCHAR(45), IngredientQuantity DOUBLE);";
+                MySqlCommand newRecipeCmd = new(createNewRecipe, Conn);
+                newRecipeCmd.ExecuteNonQuery();
 
-                All_Menu_Items.Add(newMenu_Item);
+               
+                foreach (var key in recipe.Keys)
+                {
+                    tempIngredient = key;
+                    tempIngredientQuantity = recipe[key];
+
+                    string insertRecipe = $"INSERT INTO {recipeName}_recipe VALUES ('{tempIngredient}', {tempIngredientQuantity});";
+                    MySqlCommand recipeCmd = new(insertRecipe, Conn);
+
+
+                    recipeCmd.ExecuteNonQuery();
+                }
+
+
+
+
+                if (!CheckMenuItem(name))
+                {
+
+                    string insertMenuItem = $"INSERT INTO menu_item (Name, TotalCost, IsPopular) VALUES ('{name}', {totalCost}, {b_check(isPopular)});";
+                    MySqlCommand insertMenuItemCmd = new(insertMenuItem, Conn);
+                    insertMenuItemCmd.ExecuteNonQuery();
+
+
+                    All_Menu_Items.Add(newMenu_Item);
+                }
+                else
+                {
+                    MessageBox.Show("There is already a menu item with this name.");
+
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("There is already a menu item with this name.");
+                MessageBox.Show(ex.Message);
 
             }
-
-            //create table from menu item that will connect to the recipe dictionary 
+          
+            
 
            
+        }
+
+        public static void InsertRecipeValues(Menu_Item menuItem)
+        {
+
         }
 
         public static void DeleteMenuItem(int id)
@@ -384,6 +425,14 @@ namespace COGS_Calculator.Services
                 string deleteMenuItem = $"DELETE FROM menu_item WHERE Id = {id}";
                 MySqlCommand cmd = new(deleteMenuItem, Conn);
                 cmd.ExecuteNonQuery();
+
+                foreach (Menu_Item item in All_Menu_Items)
+                {
+                    if (item.Id == id)
+                    {
+                        All_Menu_Items.Remove(item);
+                    }
+                }
             }
 
             catch (Exception ex)
@@ -395,11 +444,41 @@ namespace COGS_Calculator.Services
 
         }
 
-        public static void UpdateMenuItem(int id, double cost, bool isPopular, Dictionary<string, double> recipe)
+        public static void UpdateMenuItem(int id, string name, double cost, bool isPopular, Dictionary<string, double> recipe)
         {
+            
+
+            foreach (Menu_Item item in All_Menu_Items)
+            {
+                if (item.Id == id)
+                {
+                    item.Name = name;
+                    item.TotalCost = cost;
+                    item.IsPopular = isPopular;
+                    item.Recipe = recipe;
+                }
+            }
+
+            string updateMenuItemString = $"UPDATE menu_item SET Name = '{name}', TotalCost = {cost}, IsPopular = {b_check(isPopular)} WHERE Id = {id};" ;
+            MySqlCommand updateMenuItem = new(updateMenuItemString, Conn);
+            updateMenuItem.ExecuteNonQuery();
+
+            //delete table first
+
+            string deleteRecipe = $"DELETE FROM {name.ToLower()}_recipe;";
+            MySqlCommand deleteRecipeCmd = new(deleteRecipe, Conn);
+            deleteRecipeCmd.ExecuteNonQuery();
 
 
-            String updateMenuString = "UPDATE menu_item SET ";
+            foreach (var key in recipe.Keys)
+            {
+                string updateRecipeString = $"INSERT INTO {name.ToLower()}_recipe VALUES ('{key}',{recipe[key]}) ;";
+                MySqlCommand updateRecipeCmd = new(updateRecipeString, Conn);
+                updateRecipeCmd.ExecuteNonQuery();
+
+            }
+
+          
         }
 
         public static bool CheckMenuItem(int id)
@@ -479,6 +558,59 @@ namespace COGS_Calculator.Services
             }
 
             reader.Close();
+
+           
+
+            foreach (Menu_Item item in All_Menu_Items)
+            {
+
+                string recipeName = item.Name.ToLower();
+                string getRecipe = $"SELECT * FROM {recipeName}_recipe;";
+                MySqlCommand getRecipeCmd = new(getRecipe, Conn);
+
+
+                MySqlDataReader recipeReader = getRecipeCmd.ExecuteReader();
+
+
+                while (recipeReader.Read())
+                {
+                    item.Recipe[$"{recipeReader[0]}"] = double.Parse($"{recipeReader[1]}");
+
+                   
+                }
+
+                recipeReader.Close();
+            }
+
+          
+
+
+
+        }
+
+        public static void SyncRecipes()
+        {
+            //foreach(Menu_Item item in All_Menu_Items)
+            //{
+
+            //    string updateRecipes = $"SELECT * FROM {item.Name.ToLower()}_recipe;";
+            //    MySqlCommand updateRecipeCmd = new(updateRecipes, Conn);
+            //    MySqlDataReader updateReader = updateRecipeCmd.ExecuteReader();
+
+            //    while (updateReader.Read())
+            //    {
+
+
+            //        item.Recipe.Add($"{updateReader[0]}", double.Parse($"{updateReader[1]}"));
+            //    }
+
+            //    updateReader.Close();
+
+            //}
+
+        
+
+            
         }
 
         #endregion
@@ -486,6 +618,7 @@ namespace COGS_Calculator.Services
         #region Menu Methods
         public static void InsertMenu()
         {
+
 
         }
 

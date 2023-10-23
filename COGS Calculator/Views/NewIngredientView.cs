@@ -25,8 +25,8 @@ namespace COGS_Calculator.Views
             double quantity = double.Parse(QuantityTextBox.Text);
             double cost = double.Parse(CostTextBox.Text);
 
-            DB_Connection.InsertIngredient(IngredientNameTextBox.Text, quantity, UoMTextBox.Text, cost, CategoryTextBox.Text);
-            
+            DB_Connection.InsertIngredient(IngredientNameTextBox.Text, quantity, UoMComboBox.Text, cost, CategoryComboBox.Text);
+
             ManageIngredientsView manageIngredientsView = new ManageIngredientsView();
             manageIngredientsView.MdiParent = this.ParentForm.ParentForm;
             manageIngredientsView.Show();
@@ -39,6 +39,19 @@ namespace COGS_Calculator.Views
             manageIngredientsView.MdiParent = this.ParentForm.ParentForm;
             manageIngredientsView.Show();
             this.Close();
+        }
+
+        private void NewIngredientView_Load(object sender, EventArgs e)
+        {
+            Reload_Data();
+        }
+
+        private void Reload_Data()
+        {
+            UoMComboBox.DataSource = MenuServices.UoMList;
+            UoMComboBox.SelectedIndex = 0;
+            CategoryComboBox.DataSource = MenuServices.CategoryList;
+
         }
     }
 }

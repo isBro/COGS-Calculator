@@ -8,7 +8,10 @@ namespace COGS_Calculator.Services
 {
     public static class MenuServices
     {
-       
+       public static List<string> UoMList = new() { "oz", "lbs", "g" };
+        public static List<string> CategoryList = new() { "FRUIT", "PROTEIN", "VEGETABLE", "BREAD", "DAIRY", "SAUCE", "PASTRY", "BEVERAGE" };
+
+
 
         public static double ToOzConversion(double quantity, string startingUoM)
         {
