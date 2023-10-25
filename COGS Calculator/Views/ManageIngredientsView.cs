@@ -30,7 +30,7 @@ namespace COGS_Calculator
         {
             try
             {
-                DB_Connection.UpdateIngredient(Ingredient_Id, IngredientNameTextBox.Text, double.Parse(QuantityTextBox.Text), UoMComboBox.Text, double.Parse(CostTextBox.Text), CategoryTextBox.Text);
+                DB_Connection.UpdateIngredient(Ingredient_Id, IngredientNameTextBox.Text, double.Parse(QuantityTextBox.Text), UoMComboBox.Text, double.Parse(CostTextBox.Text), CategoryComboBox.Text);
             }
             catch (Exception ex)
             {
@@ -78,6 +78,8 @@ namespace COGS_Calculator
         }
 
         private void DeleteIngredientButton_Click(object sender, EventArgs e)
+
+            ///check to see if ingredient is inmenu item before deleting 
         {
             string message = "This cannot be undone, are you sure you want to delete?";
             DialogResult result = MessageBox.Show(message, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);

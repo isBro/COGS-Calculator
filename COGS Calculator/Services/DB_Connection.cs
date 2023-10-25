@@ -616,34 +616,152 @@ namespace COGS_Calculator.Services
         #endregion
 
         #region Menu Methods
-        public static void InsertMenu()
+        public static void InsertMenu(string name, int personCount, string notes, List<Menu_Item> menuItems)
         {
+            string insertMenu = $"INSERT INTO menu (Name, PersonCount, Notes) VALUES ('{name}', {personCount}, '{notes}');";
+            MySqlCommand insertMenuCmd = new(insertMenu, Conn);
+            insertMenuCmd.ExecuteNonQuery();
 
+            string createMenuList = $"CREATE TABLE {name.ToLower()} ( MenuItemId INT, MenuItemName VARCHAR(45), TotalCost FLOAT);";
+            MySqlCommand createMenuListCmd = new(createMenuList, Conn);
+            createMenuListCmd.ExecuteNonQuery();
+
+            foreach (Menu_Item item in menuItems)
+            {
+                string insertMenuItem = $"INSERT INTO {name.ToLower()} VALUES ({item.Id}, '{item.Name}', {item.TotalCost});";
+                MySqlCommand insertMenuItemCmd = new(insertMenuItem, Conn);
+                insertMenuItemCmd.ExecuteNonQuery();
+            }
+
+            Menu newMenu = new(name, personCount, notes);
+            newMenu.MenuItems = menuItems;
+
+            All_Menus.Add(newMenu);
 
         }
 
-        public static void DeleteMenu()
+        public static void DeleteMenu(int id, string name)
         {
+            string deleteMenu = $"DELETE FROM menu WHERE Id = {id};";
+            MySqlCommand deleteMenuCmd = new(deleteMenu, Conn);
+            deleteMenuCmd.ExecuteNonQuery();
 
+            string dropMenuList = $"DROP TABLE {name.ToLower()};";
+            MySqlCommand dropMenuListCmd = new(dropMenuList, Conn);
+            dropMenuListCmd.ExecuteNonQuery();
+
+            All_Menus.Remove(GetMenu(id));
         }
 
-        public static void UpdateMenu()
+        public static void UpdateMenu(int id, string name, int personCount, string notes, List<Menu_Item> menu_Items)
         {
+
+
+            string updateMenuString = $"UPDATE menu SET Name= '{name}', PersonCount= {personCount}, Notes= '{notes}' WHERE Id = {id};";
+            MySqlCommand updateMenuCmd = new(updateMenuString, Conn);
+            updateMenuCmd.ExecuteNonQuery();
+
+            foreach (Menu_Item item in menu_Items)
+            {
+                string updateMenuListString = $"Update {name.ToLower()} SET MenuItemName = '{item.Name}', TotalCost= {item.TotalCost} WHERE MenuItemId = {item.Id};";
+                MySqlCommand updateMenuListCmd = new(updateMenuListString, Conn);
+                updateMenuListCmd.ExecuteNonQuery();
+
+
+
+            }
+
+            foreach (Menu menu in All_Menus)
+            {
+
+                menu.MenuName = name;
+                menu.PersonCount = personCount;
+                menu.MenuNotes = notes;
+                menu.MenuItems = menu_Items;
+            }
+          
+
+
+
 
         }
 
         public static void SyncMenus()
         {
+            Menu newMenu = new();
+            Menu_Item newMenu_Item = new();
+            string syncMenus = "SELECT * FROM menu;";
+            MySqlCommand syncMenuCmd = new(syncMenus, Conn);
+            MySqlDataReader syncMenuReader = syncMenuCmd.ExecuteReader();
+
+            while (syncMenuReader.Read())
+            {
+                newMenu.Id = int.Parse($"{syncMenuReader[0]}");
+                newMenu.MenuName = $"{syncMenuReader[1]}";
+                newMenu.PersonCount = int.Parse($"{syncMenuReader[2]}");
+                newMenu.MenuNotes = $"{syncMenuReader[3]}";
+
+                All_Menus.Add(newMenu);
+
+            }
+
+            syncMenuReader.Close();
+
+            foreach(Menu menu in All_Menus)
+            {
+                string syncMenuList = $"SELECT * FROM {menu.MenuName}";
+                MySqlCommand syncMenuListCmd = new(syncMenuList, Conn);
+                MySqlDataReader syncMenuListReader = syncMenuListCmd.ExecuteReader();
+
+                while (syncMenuListReader.Read())
+                {
+                    newMenu_Item = GetMenuItem(int.Parse($"{syncMenuListReader[0]}"));
+
+                }
+
+                menu.MenuItems.Add(newMenu_Item);
+
+                
+            }
+
+
 
         }
 
-        #endregion
+
+        public static Menu GetMenu(int id)
+        {
+
+            try
+            {
+                foreach (Menu menu in All_Menus)
+                {
+                    if (menu.Id == id)
+                    {
+                        return menu;
+                    }
 
 
+                }
+            }
 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-
-
+            return null;
+        }
 
     }
+
+    #endregion
+
+
+
+
+
+
+
 }
+

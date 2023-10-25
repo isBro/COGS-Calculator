@@ -23,6 +23,8 @@ namespace COGS_Calculator.Classes
         {
 
         }
+
+        public int Id {  get; set; }
         public string MenuName { get; set; }
         public string MenuNotes { get; set; }
 
@@ -35,11 +37,7 @@ namespace COGS_Calculator.Classes
             MenuItems.Add(menuItem);
         }
 
-        public Dictionary<Menu_Item, int> ItemsAndQuantities = new();
+        //public Dictionary<Menu_Item, int> ItemsAndQuantities = new();
 
-        public void CalculateQ(List<Menu_Item> items, int headCount) { 
-        
-        
-        }
     }
 }

@@ -167,7 +167,7 @@ namespace COGS_Calculator
 
             currentRecipe = currentMenuItem.Recipe;
 
-            ReloadData();
+           // ReloadData();
 
         }
 
