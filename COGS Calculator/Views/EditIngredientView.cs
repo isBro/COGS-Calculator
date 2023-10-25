@@ -1,4 +1,5 @@
-﻿using System;
+﻿using COGS_Calculator.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,16 +8,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using COGS_Calculator.Services;
 
 namespace COGS_Calculator.Views
 {
-    public partial class NewIngredientView : Form
+    public partial class EditIngredientView : Form
     {
-        public NewIngredientView()
+        public EditIngredientView()
         {
             InitializeComponent();
         }
+
+        public EditIngredientView(Form callingForm)
+        {
+            InitializeComponent();
+        }
+
+
 
         private void SaveIngredientButton_Click(object sender, EventArgs e)
         {
@@ -28,22 +35,9 @@ namespace COGS_Calculator.Views
             DB_Connection.InsertIngredient(IngredientNameTextBox.Text, quantity, UoMComboBox.Text, cost, CategoryComboBox.Text);
 
             ManageIngredientsView manageIngredientsView = new ManageIngredientsView();
-            manageIngredientsView.MdiParent = this.ParentForm;
-            manageIngredientsView.Show();
-            this.Close();
-        }
-
-        private void BackButton_Click(object sender, EventArgs e)
-        {
-            ManageIngredientsView manageIngredientsView = new ManageIngredientsView();
             manageIngredientsView.MdiParent = this.ParentForm.ParentForm;
             manageIngredientsView.Show();
             this.Close();
-        }
-
-        private void NewIngredientView_Load(object sender, EventArgs e)
-        {
-            Reload_Data();
         }
 
         private void Reload_Data()
@@ -52,6 +46,19 @@ namespace COGS_Calculator.Views
             UoMComboBox.SelectedIndex = 0;
             CategoryComboBox.DataSource = MenuServices.CategoryList;
 
+        }
+
+        private void EditIngredientView_Load(object sender, EventArgs e)
+        {
+            Reload_Data();
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            ManageIngredientsView manageIngredientsView = new ManageIngredientsView();
+            manageIngredientsView.MdiParent = this.ParentForm.ParentForm;
+            manageIngredientsView.Show();
+            this.Close();
         }
     }
 }

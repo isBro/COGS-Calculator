@@ -30,6 +30,9 @@
         {
             CancelButton = new Button();
             AllMenusDataGridView = new DataGridView();
+            UseMenuButton = new Button();
+            DeleteMenuButton = new Button();
+            EditMenuButton = new Button();
             ((System.ComponentModel.ISupportInitialize)AllMenusDataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -45,18 +48,56 @@
             // 
             // AllMenusDataGridView
             // 
+            AllMenusDataGridView.AllowUserToAddRows = false;
+            AllMenusDataGridView.AllowUserToDeleteRows = false;
             AllMenusDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            AllMenusDataGridView.Location = new Point(190, 51);
+            AllMenusDataGridView.Location = new Point(121, 81);
             AllMenusDataGridView.Name = "AllMenusDataGridView";
+            AllMenusDataGridView.ReadOnly = true;
             AllMenusDataGridView.RowTemplate.Height = 25;
-            AllMenusDataGridView.Size = new Size(434, 150);
+            AllMenusDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            AllMenusDataGridView.Size = new Size(553, 150);
             AllMenusDataGridView.TabIndex = 21;
+            AllMenusDataGridView.Click += AM_DataGridView_Selected;
+            // 
+            // UseMenuButton
+            // 
+            UseMenuButton.Location = new Point(121, 257);
+            UseMenuButton.Name = "UseMenuButton";
+            UseMenuButton.Size = new Size(75, 23);
+            UseMenuButton.TabIndex = 22;
+            UseMenuButton.Text = "Use";
+            UseMenuButton.UseVisualStyleBackColor = true;
+            UseMenuButton.Click += UseMenuButton_Click;
+            // 
+            // DeleteMenuButton
+            // 
+            DeleteMenuButton.Location = new Point(599, 257);
+            DeleteMenuButton.Name = "DeleteMenuButton";
+            DeleteMenuButton.Size = new Size(75, 23);
+            DeleteMenuButton.TabIndex = 23;
+            DeleteMenuButton.Text = "Delete";
+            DeleteMenuButton.UseVisualStyleBackColor = true;
+            DeleteMenuButton.Click += DeleteMenuButton_Click;
+            // 
+            // EditMenuButton
+            // 
+            EditMenuButton.Location = new Point(346, 257);
+            EditMenuButton.Name = "EditMenuButton";
+            EditMenuButton.Size = new Size(75, 23);
+            EditMenuButton.TabIndex = 24;
+            EditMenuButton.Text = "Edit";
+            EditMenuButton.UseVisualStyleBackColor = true;
+            EditMenuButton.Click += EditMenuButton_Click;
             // 
             // ManageMenuView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(EditMenuButton);
+            Controls.Add(DeleteMenuButton);
+            Controls.Add(UseMenuButton);
             Controls.Add(AllMenusDataGridView);
             Controls.Add(CancelButton);
             Name = "ManageMenuView";
@@ -70,5 +111,8 @@
 
         private Button CancelButton;
         private DataGridView AllMenusDataGridView;
+        private Button UseMenuButton;
+        private Button DeleteMenuButton;
+        private Button EditMenuButton;
     }
 }

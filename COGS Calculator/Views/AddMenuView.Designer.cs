@@ -106,6 +106,7 @@
             AllMenu_ItemDataGrid.Name = "AllMenu_ItemDataGrid";
             AllMenu_ItemDataGrid.RowHeadersWidth = 51;
             AllMenu_ItemDataGrid.RowTemplate.Height = 29;
+            AllMenu_ItemDataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             AllMenu_ItemDataGrid.Size = new Size(427, 141);
             AllMenu_ItemDataGrid.TabIndex = 12;
             AllMenu_ItemDataGrid.Click += AllMenu_ItemDataGrid_Clicked;
@@ -118,6 +119,7 @@
             CurrentMenu_ItemDataGrid.Name = "CurrentMenu_ItemDataGrid";
             CurrentMenu_ItemDataGrid.RowHeadersWidth = 51;
             CurrentMenu_ItemDataGrid.RowTemplate.Height = 29;
+            CurrentMenu_ItemDataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             CurrentMenu_ItemDataGrid.Size = new Size(427, 141);
             CurrentMenu_ItemDataGrid.TabIndex = 13;
             CurrentMenu_ItemDataGrid.Click += CurrentMenu_ItemDataGrid_Clicked;

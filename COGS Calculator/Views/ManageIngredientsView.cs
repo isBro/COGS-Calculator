@@ -31,6 +31,7 @@ namespace COGS_Calculator
             try
             {
                 DB_Connection.UpdateIngredient(Ingredient_Id, IngredientNameTextBox.Text, double.Parse(QuantityTextBox.Text), UoMComboBox.Text, double.Parse(CostTextBox.Text), CategoryComboBox.Text);
+                MessageBox.Show("Update Saved");
             }
             catch (Exception ex)
             {
@@ -74,12 +75,23 @@ namespace COGS_Calculator
         private void ManageIngredientsViewLoaded(object sender, EventArgs e)
         {
             Reload_Data();
+            Ingredient_Id = int.Parse($"{IngredientsDataGridView1.SelectedCells[0].Value}");
+
+
+            ingredient = DB_Connection.GetIngredient(Ingredient_Id);
+
+            IdTextBox.Text = Ingredient_Id.ToString();
+            IngredientNameTextBox.Text = ingredient.Name;
+            QuantityTextBox.Text = ingredient.Quantity.ToString();
+            UoMComboBox.Text = ingredient.UoM;
+            CostTextBox.Text = ingredient.UnitCost.ToString();
+            CategoryComboBox.Text = ingredient.Category;
 
         }
 
         private void DeleteIngredientButton_Click(object sender, EventArgs e)
 
-            ///check to see if ingredient is inmenu item before deleting 
+        ///check to see if ingredient is inmenu item before deleting 
         {
             string message = "This cannot be undone, are you sure you want to delete?";
             DialogResult result = MessageBox.Show(message, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);

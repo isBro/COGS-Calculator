@@ -126,6 +126,7 @@
             // 
             // Name_TextBox
             // 
+            Name_TextBox.Enabled = false;
             Name_TextBox.Location = new Point(91, 172);
             Name_TextBox.Name = "Name_TextBox";
             Name_TextBox.Size = new Size(100, 23);

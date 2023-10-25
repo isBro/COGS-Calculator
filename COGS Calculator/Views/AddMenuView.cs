@@ -12,6 +12,7 @@ using COGS_Calculator.Classes;
 using COGS_Calculator.Model;
 using COGS_Calculator.Services;
 
+
 namespace COGS_Calculator
 {
     public partial class AddMenuView : Form
@@ -28,9 +29,15 @@ namespace COGS_Calculator
 
         private void Save_Menu_Button_Click(object sender, EventArgs e)
         {
-            DB_Connection.InsertMenu(MenuNameTextBox.Text, int.Parse($"{PersonCountTextBox.Text}"), NotesTextBox.Text, newMenu.MenuItems);
+            // exception handling needed
+
+            newMenu.MenuName = MenuNameTextBox.Text;
+            newMenu.PersonCount = int.Parse($"{PersonCountTextBox.Text}");
+            newMenu.MenuNotes = NotesTextBox.Text;
+
+            DB_Connection.InsertMenu(newMenu.MenuName, newMenu.PersonCount, newMenu.MenuNotes, newMenu.MenuItems);
             this.Close();
-            
+
         }
 
         private void AddMenu_Item_Button_Click(object sender, EventArgs e)

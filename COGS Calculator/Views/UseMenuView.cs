@@ -7,14 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using COGS_Calculator.Classes;
+using COGS_Calculator.Model;
+using COGS_Calculator.Services;
 
 namespace COGS_Calculator
 {
-    public partial class OpenMenuView : Form
+    public partial class UseMenuView : Form
     {
-        public OpenMenuView()
+        public UseMenuView()
         {
             InitializeComponent();
         }
+
+        public Menu menu = new();
+
+     
+
+
     }
 }

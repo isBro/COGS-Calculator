@@ -358,7 +358,10 @@ namespace COGS_Calculator.Services
             //// this does not work /////
             try
             {
-                Menu_Item newMenu_Item = new(name);
+                Menu_Item newMenu_Item = new();
+                newMenu_Item.Name = name;
+                newMenu_Item.TotalCost = totalCost;
+                newMenu_Item.IsPopular = isPopular;
                 newMenu_Item.Recipe = recipe;
                 string recipeName = $"{newMenu_Item.Name.ToLower()}";
                 string tempIngredient = "";
@@ -661,27 +664,33 @@ namespace COGS_Calculator.Services
             MySqlCommand updateMenuCmd = new(updateMenuString, Conn);
             updateMenuCmd.ExecuteNonQuery();
 
-            foreach (Menu_Item item in menu_Items)
-            {
-                string updateMenuListString = $"Update {name.ToLower()} SET MenuItemName = '{item.Name}', TotalCost= {item.TotalCost} WHERE MenuItemId = {item.Id};";
-                MySqlCommand updateMenuListCmd = new(updateMenuListString, Conn);
-                updateMenuListCmd.ExecuteNonQuery();
+            string dropMenuList = $"DROP TABLE {name.ToLower()};";
+            MySqlCommand dropMenuListCmd = new(dropMenuList, Conn);
+            dropMenuListCmd.ExecuteNonQuery();
 
+            string createMenuList = $"CREATE TABLE {name.ToLower()} ( MenuItemId INT, MenuItemName VARCHAR(45), TotalCost FLOAT);"; 
+            MySqlCommand createMenuListCmd = new(createMenuList, Conn); createMenuListCmd.ExecuteNonQuery(); 
 
+            foreach (Menu_Item item in menu_Items) { 
 
+                string insertMenuItem = $"INSERT INTO {name.ToLower()} VALUES ({item.Id}, '{item.Name}', {item.TotalCost});";
+                MySqlCommand insertMenuItemCmd = new(insertMenuItem, Conn); 
+
+                insertMenuItemCmd.ExecuteNonQuery();
             }
+
 
             foreach (Menu menu in All_Menus)
             {
-
-                menu.MenuName = name;
-                menu.PersonCount = personCount;
-                menu.MenuNotes = notes;
-                menu.MenuItems = menu_Items;
+                if (menu.Id == id)
+                {
+                    menu.MenuName = name;
+                    menu.PersonCount = personCount;
+                    menu.MenuNotes = notes;
+                    menu.MenuItems = menu_Items;
+                }
+                
             }
-          
-
-
 
 
         }
@@ -718,6 +727,7 @@ namespace COGS_Calculator.Services
                     newMenu_Item = GetMenuItem(int.Parse($"{syncMenuListReader[0]}"));
 
                 }
+                syncMenuListReader.Close();
 
                 menu.MenuItems.Add(newMenu_Item);
 

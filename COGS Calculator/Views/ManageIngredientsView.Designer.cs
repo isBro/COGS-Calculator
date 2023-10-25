@@ -36,7 +36,6 @@
             IngredientsDataGridView1 = new DataGridView();
             SaveIngredientButton = new Button();
             BackButton = new Button();
-            EditIngredientButton = new Button();
             DeleteIngredientButton = new Button();
             label2 = new Label();
             label3 = new Label();
@@ -124,18 +123,9 @@
             BackButton.UseVisualStyleBackColor = true;
             BackButton.Click += BackButton_Click;
             // 
-            // EditIngredientButton
-            // 
-            EditIngredientButton.Location = new Point(461, 298);
-            EditIngredientButton.Name = "EditIngredientButton";
-            EditIngredientButton.Size = new Size(75, 23);
-            EditIngredientButton.TabIndex = 10;
-            EditIngredientButton.Text = "Edit";
-            EditIngredientButton.UseVisualStyleBackColor = true;
-            // 
             // DeleteIngredientButton
             // 
-            DeleteIngredientButton.Location = new Point(684, 298);
+            DeleteIngredientButton.Location = new Point(596, 298);
             DeleteIngredientButton.Name = "DeleteIngredientButton";
             DeleteIngredientButton.Size = new Size(75, 23);
             DeleteIngredientButton.TabIndex = 11;
@@ -238,7 +228,6 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(DeleteIngredientButton);
-            Controls.Add(EditIngredientButton);
             Controls.Add(BackButton);
             Controls.Add(SaveIngredientButton);
             Controls.Add(IngredientsDataGridView1);
@@ -267,7 +256,6 @@
         private DataGridView IngredientsDataGridView1;
         private Button SaveIngredientButton;
         private Button BackButton;
-        private Button EditIngredientButton;
         private Button DeleteIngredientButton;
         private Label label2;
         private Label label3;

@@ -9,7 +9,9 @@ namespace COGS_Calculator.Services
     public static class MenuServices
     {
        public static List<string> UoMList = new() { "oz", "lbs", "g" };
-        public static List<string> CategoryList = new() { "FRUIT", "PROTEIN", "VEGETABLE", "BREAD", "DAIRY", "SAUCE", "PASTRY", "BEVERAGE" };
+       public static List<string> CategoryList = new() { "FRUIT", "PROTEIN", "VEGETABLE", "BREAD", "DAIRY", "SAUCE", "PASTRY", "BEVERAGE" };
+       
+
 
 
 
@@ -35,6 +37,10 @@ namespace COGS_Calculator.Services
             return converted_quantity;
         }
 
+
+
+        // need method to run quantity totals - i.e. - FOR TOTAL QUANTITIES ingredient quantity @ UoM * menu_Item.Recipe[ingredient.Name] * Menu.PersonCount
+        // public static method with a dictionary return type. takes a menu for input?
 
 
 

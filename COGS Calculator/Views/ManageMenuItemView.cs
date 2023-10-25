@@ -54,6 +54,7 @@ namespace COGS_Calculator
 
 
             DB_Connection.UpdateMenuItem(currentMenuItem.Id, Name_TextBox.Text, currentMenuItem.TotalCost, IsPopular_Button.Checked, currentRecipe);
+            MessageBox.Show("Update Saved");
 
 
         }
@@ -167,7 +168,7 @@ namespace COGS_Calculator
 
             currentRecipe = currentMenuItem.Recipe;
 
-           // ReloadData();
+            ReloadData();
 
         }
 
@@ -179,7 +180,7 @@ namespace COGS_Calculator
 
             ReloadData();
             ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
-           
+
             currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
             currentRecipe = currentMenuItem.Recipe;
 

@@ -53,9 +53,10 @@ namespace COGS_Calculator
 
         private void openMenuClicked(object sender, EventArgs e)
         {
-            OpenMenuView openMenu = new();
-            openMenu.MdiParent = this;
-            openMenu.Show();
+          
+            ManageMenuView menuView = new();
+            menuView.MdiParent = this;
+            menuView.Show();
         }
 
         private void StartViewActivated(object sender, EventArgs e)
