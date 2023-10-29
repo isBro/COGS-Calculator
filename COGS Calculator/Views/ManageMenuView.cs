@@ -12,6 +12,7 @@ using COGS_Calculator.Model;
 using COGS_Calculator.Services;
 using COGS_Calculator.Views;
 
+
 namespace COGS_Calculator
 {
     public partial class ManageMenuView : Form
@@ -21,7 +22,6 @@ namespace COGS_Calculator
             InitializeComponent();
         }
 
-        public static Menu selectedMenu = new();
         public static int menuId;
         public List<Menu> allMenus = new();
 
@@ -33,9 +33,7 @@ namespace COGS_Calculator
 
         private void ReloadData()
         {
-
-            allMenus = DB_Connection.All_Menus;
-            var AllMenuBindingList = new BindingList<Menu>(allMenus);
+            var AllMenuBindingList = new BindingList<Menu>(DB_Connection.All_Menus);
             var AllMenuBindingSource = new BindingSource(AllMenuBindingList, null);
 
             AllMenusDataGridView.DataSource = AllMenuBindingSource;
@@ -43,6 +41,9 @@ namespace COGS_Calculator
 
         private void ManageMenuViewActivated(object sender, EventArgs e)
         {
+
+            DB_Connection.SyncMenus();
+
             if (DB_Connection.All_Menus.Count == 0)
             {
                 UseMenuButton.Enabled = false;
@@ -51,8 +52,7 @@ namespace COGS_Calculator
             else
             {
                 ReloadData();
-                selectedMenu = DB_Connection.GetMenu(int.Parse($"{AllMenusDataGridView.SelectedCells[0].Value}"));
-                menuId = selectedMenu.Id;
+                menuId = int.Parse($"{AllMenusDataGridView.SelectedCells[0].Value}");
             }
 
            
@@ -81,8 +81,7 @@ namespace COGS_Calculator
 
             try
             {
-                selectedMenu = DB_Connection.GetMenu(int.Parse($"{AllMenusDataGridView.SelectedCells[0].Value}"));
-                menuId = selectedMenu.Id;
+                menuId = int.Parse($"{AllMenusDataGridView.SelectedCells[0].Value}");
             }
 
             catch (Exception ex)
@@ -96,9 +95,12 @@ namespace COGS_Calculator
 
         private void EditMenuButton_Click(object sender, EventArgs e)
         {
+            
+
             EditMenuForm editMenuForm = new(this);
             editMenuForm.MdiParent = this.ParentForm;
             editMenuForm.Show();
+            this.Close();
         }
     }
 }

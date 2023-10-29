@@ -65,6 +65,7 @@
             // 
             // IngredientNameTextBox
             // 
+            IngredientNameTextBox.Enabled = false;
             IngredientNameTextBox.Location = new Point(225, 70);
             IngredientNameTextBox.Name = "IngredientNameTextBox";
             IngredientNameTextBox.Size = new Size(100, 23);

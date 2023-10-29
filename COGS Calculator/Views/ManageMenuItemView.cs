@@ -95,10 +95,21 @@ namespace COGS_Calculator
             if (currentRecipe.Count > 1)
             {
 
+                inputIngredientName = $"{All_Recipe_IngredientsView.SelectedCells[0].Value}";
+                inputQuantity = double.Parse($"{All_Recipe_IngredientsView.SelectedCells[1].Value}");
+
                 cost -= (ingredient.UnitCost * currentRecipe[inputIngredientName]);
                 currentRecipe.Remove($"{inputIngredientName}");
-                TotalCost_TextBox.Text = $"{cost}";
-                currentMenuItem.TotalCost = cost;
+
+                //calculate cost
+
+                if (cost < 0) { }
+                {
+                    TotalCost_TextBox.Text = $"{0}";
+                    currentMenuItem.TotalCost = 0;
+                    cost = 0;
+                }
+
                 ReloadData();
 
                 Recipe_Add_Button.Enabled = true;
@@ -144,6 +155,19 @@ namespace COGS_Calculator
             All_IngredientsView.DataSource = IngredientsSource;
             All_Menu_Items_View.DataSource = MenuItemSource;
 
+            if (ingredientList.Count>0)
+            {
+                ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+            }
+
+            if (DB_Connection.All_Menu_Items.Count>0)
+            {
+                currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
+                currentRecipe = currentMenuItem.Recipe;
+
+            }
+
+            
 
 
         }
@@ -178,11 +202,11 @@ namespace COGS_Calculator
             // exception handling needed
 
 
-            ReloadData();
-            ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+            //ReloadData();
+            //ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
 
-            currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
-            currentRecipe = currentMenuItem.Recipe;
+            //currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
+            //currentRecipe = currentMenuItem.Recipe;
 
             ReloadData();
 

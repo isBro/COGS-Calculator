@@ -108,24 +108,32 @@
             // 
             // CurrentMenu_ItemDataGrid
             // 
+            CurrentMenu_ItemDataGrid.AllowUserToAddRows = false;
+            CurrentMenu_ItemDataGrid.AllowUserToDeleteRows = false;
             CurrentMenu_ItemDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             CurrentMenu_ItemDataGrid.Location = new Point(548, 344);
             CurrentMenu_ItemDataGrid.Margin = new Padding(3, 2, 3, 2);
             CurrentMenu_ItemDataGrid.Name = "CurrentMenu_ItemDataGrid";
+            CurrentMenu_ItemDataGrid.ReadOnly = true;
             CurrentMenu_ItemDataGrid.RowHeadersWidth = 51;
             CurrentMenu_ItemDataGrid.RowTemplate.Height = 29;
+            CurrentMenu_ItemDataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             CurrentMenu_ItemDataGrid.Size = new Size(427, 141);
             CurrentMenu_ItemDataGrid.TabIndex = 27;
             CurrentMenu_ItemDataGrid.Click += CurrentMenu_ItemDataGrid_Clicked;
             // 
             // AllMenu_ItemDataGrid
             // 
+            AllMenu_ItemDataGrid.AllowUserToAddRows = false;
+            AllMenu_ItemDataGrid.AllowUserToDeleteRows = false;
             AllMenu_ItemDataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             AllMenu_ItemDataGrid.Location = new Point(548, 95);
             AllMenu_ItemDataGrid.Margin = new Padding(3, 2, 3, 2);
             AllMenu_ItemDataGrid.Name = "AllMenu_ItemDataGrid";
+            AllMenu_ItemDataGrid.ReadOnly = true;
             AllMenu_ItemDataGrid.RowHeadersWidth = 51;
             AllMenu_ItemDataGrid.RowTemplate.Height = 29;
+            AllMenu_ItemDataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             AllMenu_ItemDataGrid.Size = new Size(427, 141);
             AllMenu_ItemDataGrid.TabIndex = 26;
             AllMenu_ItemDataGrid.Click += AllMenu_ItemDataGrid_Clicked;

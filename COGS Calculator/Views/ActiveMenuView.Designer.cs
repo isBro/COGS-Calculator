@@ -32,13 +32,13 @@
             NotesLabel = new Label();
             MenuNameLabel = new Label();
             button5 = new Button();
-            dataGridView1 = new DataGridView();
+            ActiveMenuGridView = new DataGridView();
             PrintButton = new Button();
             IngredientViewButton = new Button();
             MenuItemViewButton = new Button();
             BackButton = new Button();
             printDocument1 = new System.Drawing.Printing.PrintDocument();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ActiveMenuGridView).BeginInit();
             SuspendLayout();
             // 
             // PersonCountLabel
@@ -77,14 +77,14 @@
             button5.Text = "button5";
             button5.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // ActiveMenuGridView
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(226, 63);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(547, 240);
-            dataGridView1.TabIndex = 13;
+            ActiveMenuGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ActiveMenuGridView.Location = new Point(226, 63);
+            ActiveMenuGridView.Name = "ActiveMenuGridView";
+            ActiveMenuGridView.RowTemplate.Height = 25;
+            ActiveMenuGridView.Size = new Size(547, 240);
+            ActiveMenuGridView.TabIndex = 13;
             // 
             // PrintButton
             // 
@@ -134,14 +134,15 @@
             Controls.Add(NotesLabel);
             Controls.Add(MenuNameLabel);
             Controls.Add(button5);
-            Controls.Add(dataGridView1);
+            Controls.Add(ActiveMenuGridView);
             Controls.Add(PrintButton);
             Controls.Add(IngredientViewButton);
             Controls.Add(MenuItemViewButton);
             Controls.Add(BackButton);
             Name = "ActiveMenuView";
             Text = "ActiveMenuView";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Load += ActiveMenuView_Load;
+            ((System.ComponentModel.ISupportInitialize)ActiveMenuGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,7 +153,7 @@
         private Label NotesLabel;
         private Label MenuNameLabel;
         private Button button5;
-        private DataGridView dataGridView1;
+        private DataGridView ActiveMenuGridView;
         private Button PrintButton;
         private Button IngredientViewButton;
         private Button MenuItemViewButton;

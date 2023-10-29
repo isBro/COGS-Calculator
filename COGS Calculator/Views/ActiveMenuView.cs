@@ -22,6 +22,9 @@ namespace COGS_Calculator.Views
 
         public Menu menu = new();
 
+        //public Dictionary<string, double> IngredientReportList = new();
+        public List<Ingredient> IngredientReportList = new();
+
         public ActiveMenuView(Form callingForm)
         {
             InitializeComponent();
@@ -29,21 +32,44 @@ namespace COGS_Calculator.Views
             ManageMenuView manageMenuView = callingForm as ManageMenuView;
 
             menu = DB_Connection.GetMenu(ManageMenuView.menuId);
+            //IngredientReportList = MenuServices.GetIngredientQuantities(menu);
+            IngredientReportList = MenuServices.IngredientTotalsPerMenu(menu);
         }
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void IngredientViewButton_Click(object sender, EventArgs e)
         {
+
+            //BindingSource IngredientTotalsSource = new BindingSource(IngredientReportList.ToList(), null);
+            //ActiveMenuGridView.DataSource = IngredientTotalsSource;
+
+            BindingSource IngredientTotalsSource = new BindingSource(IngredientReportList, null);
+            ActiveMenuGridView.DataSource = IngredientTotalsSource;
 
         }
 
         private void MenuItemViewButton_Click(object sender, EventArgs e)
         {
 
+
+
+
+        }
+
+        private void ReloadData()
+        {
+
+        }
+
+        private void ActiveMenuView_Load(object sender, EventArgs e)
+        {
+            MenuNameLabel.Text = "Menu Name: " + menu.MenuName;
+            PersonCountLabel.Text = $"Guest Count: {menu.PersonCount}";
+            NotesLabel.Text = $"Notes: \n{menu.MenuNotes}";
         }
     }
 }

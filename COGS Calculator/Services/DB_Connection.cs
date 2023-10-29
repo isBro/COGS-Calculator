@@ -10,6 +10,8 @@ using System.Xml.Linq;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.AccessControl;
 
+
+
 namespace COGS_Calculator.Services
 {
     public static class DB_Connection
@@ -291,6 +293,29 @@ namespace COGS_Calculator.Services
             return null;
         }
 
+        public static Ingredient GetIngredient(string name)
+        {
+            try
+            {
+                foreach (Ingredient item in All_Ingredients)
+                {
+                    if (item.Name == name)
+                    {
+                        return item;
+                    }
+
+
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return null;
+        }
+
         public static void SyncIngredients()
         {
 
@@ -355,7 +380,7 @@ namespace COGS_Calculator.Services
         #region Menu_Item Methods
         public static void InsertMenuItem(string name, double totalCost, bool isPopular, Dictionary<string, double> recipe )
         {
-            //// this does not work /////
+            
             try
             {
                 Menu_Item newMenu_Item = new();
@@ -673,6 +698,9 @@ namespace COGS_Calculator.Services
 
             foreach (Menu_Item item in menu_Items) { 
 
+
+                // throwing an error
+
                 string insertMenuItem = $"INSERT INTO {name.ToLower()} VALUES ({item.Id}, '{item.Name}', {item.TotalCost});";
                 MySqlCommand insertMenuItemCmd = new(insertMenuItem, Conn); 
 
@@ -698,7 +726,8 @@ namespace COGS_Calculator.Services
         public static void SyncMenus()
         {
             Menu newMenu = new();
-            Menu_Item newMenu_Item = new();
+            //Menu_Item newMenu_Item = new();
+
             string syncMenus = "SELECT * FROM menu;";
             MySqlCommand syncMenuCmd = new(syncMenus, Conn);
             MySqlDataReader syncMenuReader = syncMenuCmd.ExecuteReader();
@@ -710,30 +739,48 @@ namespace COGS_Calculator.Services
                 newMenu.PersonCount = int.Parse($"{syncMenuReader[2]}");
                 newMenu.MenuNotes = $"{syncMenuReader[3]}";
 
-                All_Menus.Add(newMenu);
-
             }
 
             syncMenuReader.Close();
 
-            foreach(Menu menu in All_Menus)
+            if (!CheckMenu(newMenu.Id))
             {
-                string syncMenuList = $"SELECT * FROM {menu.MenuName}";
+                All_Menus.Add(newMenu);
+               
+            }
+
+            foreach (Menu menu in All_Menus)
+            {
+                string syncMenuList = $"SELECT * FROM {menu.MenuName.ToLower()}";
                 MySqlCommand syncMenuListCmd = new(syncMenuList, Conn);
                 MySqlDataReader syncMenuListReader = syncMenuListCmd.ExecuteReader();
 
                 while (syncMenuListReader.Read())
                 {
-                    newMenu_Item = GetMenuItem(int.Parse($"{syncMenuListReader[0]}"));
+                    Menu_Item newMenu_Item = GetMenuItem(int.Parse($"{syncMenuListReader[0]}"));
+
+                    if (newMenu_Item != null)
+                    {
+                        if (!menu.MenuItems.Contains(newMenu_Item))
+                        {
+
+                            menu.MenuItems.Add(newMenu_Item);
+                        }
+
+                    }
+
+                   
+                    
 
                 }
                 syncMenuListReader.Close();
 
-                menu.MenuItems.Add(newMenu_Item);
+               
+               
 
-                
+
             }
-
+            
 
 
         }
@@ -763,6 +810,16 @@ namespace COGS_Calculator.Services
             return null;
         }
 
+        public static bool CheckMenu(int id)
+        {
+            foreach (Menu menu in All_Menus)
+            {
+                if (menu.Id == id) { return true; }
+                
+            }
+
+            return false;
+        }
     }
 
     #endregion

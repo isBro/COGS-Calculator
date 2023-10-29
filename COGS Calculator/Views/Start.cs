@@ -3,6 +3,7 @@ using COGS_Calculator.Classes;
 using COGS_Calculator.Model;
 using COGS_Calculator.Services;
 
+
 namespace COGS_Calculator
 {
     public partial class Start : Form
@@ -28,7 +29,7 @@ namespace COGS_Calculator
 
         private void manageIngredientsClicked(object sender, EventArgs e)
         {
-            
+
             ManageIngredientsView ingredientsView = new();
             ingredientsView.MdiParent = this;
             ingredientsView.Show();
@@ -53,7 +54,7 @@ namespace COGS_Calculator
 
         private void openMenuClicked(object sender, EventArgs e)
         {
-          
+
             ManageMenuView menuView = new();
             menuView.MdiParent = this;
             menuView.Show();
@@ -68,15 +69,19 @@ namespace COGS_Calculator
                 DB_Connection.SyncMenuItems();
                 DB_Connection.SyncRecipes();
                 DB_Connection.SyncMenus();
-           
 
-                
+                //MessageBox.Show($"{DB_Connection.GetMenu(2).MenuItems.Count()} :  {DB_Connection.GetMenu(2).MenuItems.ElementAt(0).Id}");
+
+
+
+
+
 
                 AppSettings.FirstRun = false;
             }
 
 
-          
+
 
 
 
