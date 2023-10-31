@@ -47,6 +47,7 @@ namespace COGS_Calculator
             if (DB_Connection.All_Menus.Count == 0)
             {
                 UseMenuButton.Enabled = false;
+                EditMenuButton.Enabled = false;
                 DeleteMenuButton.Enabled = false;
             }
             else
@@ -55,7 +56,7 @@ namespace COGS_Calculator
                 menuId = int.Parse($"{AllMenusDataGridView.SelectedCells[0].Value}");
             }
 
-           
+
 
             ReloadData();
         }
@@ -95,7 +96,7 @@ namespace COGS_Calculator
 
         private void EditMenuButton_Click(object sender, EventArgs e)
         {
-            
+
 
             EditMenuForm editMenuForm = new(this);
             editMenuForm.MdiParent = this.ParentForm;

@@ -33,6 +33,8 @@
             UseMenuButton = new Button();
             DeleteMenuButton = new Button();
             EditMenuButton = new Button();
+            Search_Label = new Label();
+            Menu_SearchBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)AllMenusDataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -90,11 +92,29 @@
             EditMenuButton.UseVisualStyleBackColor = true;
             EditMenuButton.Click += EditMenuButton_Click;
             // 
+            // Search_Label
+            // 
+            Search_Label.AutoSize = true;
+            Search_Label.Location = new Point(515, 27);
+            Search_Label.Name = "Search_Label";
+            Search_Label.Size = new Size(42, 15);
+            Search_Label.TabIndex = 44;
+            Search_Label.Text = "Search";
+            // 
+            // Menu_SearchBox
+            // 
+            Menu_SearchBox.Location = new Point(574, 24);
+            Menu_SearchBox.Name = "Menu_SearchBox";
+            Menu_SearchBox.Size = new Size(100, 23);
+            Menu_SearchBox.TabIndex = 43;
+            // 
             // ManageMenuView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(Search_Label);
+            Controls.Add(Menu_SearchBox);
             Controls.Add(EditMenuButton);
             Controls.Add(DeleteMenuButton);
             Controls.Add(UseMenuButton);
@@ -105,6 +125,7 @@
             Activated += ManageMenuViewActivated;
             ((System.ComponentModel.ISupportInitialize)AllMenusDataGridView).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -114,5 +135,7 @@
         private Button UseMenuButton;
         private Button DeleteMenuButton;
         private Button EditMenuButton;
+        private Label Search_Label;
+        private TextBox Menu_SearchBox;
     }
 }

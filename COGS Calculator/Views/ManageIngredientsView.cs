@@ -75,17 +75,23 @@ namespace COGS_Calculator
         private void ManageIngredientsViewLoaded(object sender, EventArgs e)
         {
             Reload_Data();
-            Ingredient_Id = int.Parse($"{IngredientsDataGridView1.SelectedCells[0].Value}");
+
+            if (DB_Connection.All_Ingredients.Count >= 1)
+            {
+                Ingredient_Id = int.Parse($"{IngredientsDataGridView1.SelectedCells[0].Value}");
+                ingredient = DB_Connection.GetIngredient(Ingredient_Id);
+
+                IdTextBox.Text = Ingredient_Id.ToString();
+                IngredientNameTextBox.Text = ingredient.Name;
+                QuantityTextBox.Text = ingredient.Quantity.ToString();
+                UoMComboBox.Text = ingredient.UoM;
+                CostTextBox.Text = ingredient.UnitCost.ToString();
+                CategoryComboBox.Text = ingredient.Category;
+            }
 
 
-            ingredient = DB_Connection.GetIngredient(Ingredient_Id);
 
-            IdTextBox.Text = Ingredient_Id.ToString();
-            IngredientNameTextBox.Text = ingredient.Name;
-            QuantityTextBox.Text = ingredient.Quantity.ToString();
-            UoMComboBox.Text = ingredient.UoM;
-            CostTextBox.Text = ingredient.UnitCost.ToString();
-            CategoryComboBox.Text = ingredient.Category;
+
 
         }
 

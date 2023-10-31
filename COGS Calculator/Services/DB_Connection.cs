@@ -9,6 +9,8 @@ using COGS_Calculator.Classes;
 using System.Xml.Linq;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.AccessControl;
+using System.Globalization;
+using System.IO;
 
 
 
@@ -46,11 +48,21 @@ namespace COGS_Calculator.Services
 
         }
 
+        public static CultureInfo ci = new CultureInfo($"{CultureInfo.CurrentCulture.Name}");
+        public static Calendar cal = ci.Calendar;
+        public static string CurrentUser { get; set; }
+        public static string CurrentUserId { get; set; }
+
+        public static string format = "yyyy-MM-dd HH:mm:ss";
+
+
         public static List<Ingredient> All_Ingredients = new List<Ingredient>();
 
         public static List<Menu_Item> All_Menu_Items = new List<Menu_Item>();
 
         public static List<Menu> All_Menus = new List<Menu>();
+
+        public static Dictionary<string, int> Users = new Dictionary<string, int>();
 
         public static int b_check(bool b)
         {
@@ -72,20 +84,69 @@ namespace COGS_Calculator.Services
             return false;
         }
 
+
+        #region User Methods
+
+        public static bool Validate_User(string userName, string password)
+        {
+
+
+            string User_q = $"SELECT * FROM Users WHERE User_Name = '{userName}' AND Password = '{password}' ";
+            MySqlCommand findUser = new MySqlCommand(User_q, Conn);
+            object User_Result = findUser.ExecuteScalar();
+
+            if (User_Result != null)
+            {
+
+                CurrentUser = userName;
+                //CurrentUserId = $"{Users[userName]}";
+
+               
+                //log += $"{CurrentUser} has logged in at {DateTime.UtcNow.ToLocalTime()}.";
+               // File.AppendAllText(AbsolutePath, log + Environment.NewLine);
+
+
+
+                return true;
+
+
+            }
+
+            else
+            {
+                //log += $"Failed login attempt at {DateTime.UtcNow}.";
+                //File.AppendAllText(AbsolutePath, log + Environment.NewLine);
+
+                return false;
+
+
+
+
+            }
+
+
+
+        }
+
+
+        #endregion
+
+
         #region Ingredient Methods
 
         public static void InsertIngredient(string name, double quantity, string uom, double cost, string category)
         {
+            string newName = name.Replace(" ", "_");
 
             try
             {
-                if (!CheckIngredient(name))
+                if (!CheckIngredient(newName))
                 {
-                    string insertIngredient = $"INSERT INTO ingredient (Name, Quantity, UoM, Cost, Category) VALUES ('{name}', {quantity}, '{uom}', {cost}, '{category}');";
+                    string insertIngredient = $"INSERT INTO ingredient (Name, Quantity, UoM, Cost, Category, LastUpdated, LastUpdatedBy) VALUES ('{newName}', {quantity}, '{uom}', {cost}, '{category}', '{DateTime.UtcNow.ToLocalTime().ToString(format)}', '{CurrentUser}');";
                     MySqlCommand I_Ingredient = new MySqlCommand(insertIngredient, Conn);
                     I_Ingredient.ExecuteNonQuery();
 
-                    Ingredient NewIngredient = new(name, quantity, uom, cost, category);
+                    Ingredient NewIngredient = new(newName, quantity, uom, cost, category);
 
                     // Exception handling here
 
@@ -204,7 +265,7 @@ namespace COGS_Calculator.Services
             double NewCost = cost;
             string NewCategory = category;
 
-            string updateString = $"UPDATE ingredient SET Quantity = {quantity}, UoM = '{uom}', Cost = {cost}, Category = '{category}' WHERE ID = {id} ";
+            string updateString = $"UPDATE ingredient SET Quantity = {quantity}, UoM = '{uom}', Cost = {cost}, Category = '{category}', LastUpdated - '{DateTime.UtcNow.ToLocalTime().ToString(format)}', LastUpdatedBy = '{CurrentUser}' WHERE ID = {id} ";
             MySqlCommand Update_cmd = new(updateString, Conn);
 
 
@@ -380,11 +441,12 @@ namespace COGS_Calculator.Services
         #region Menu_Item Methods
         public static void InsertMenuItem(string name, double totalCost, bool isPopular, Dictionary<string, double> recipe )
         {
+            string newName = name.Replace(" ", "_");
             
             try
             {
                 Menu_Item newMenu_Item = new();
-                newMenu_Item.Name = name;
+                newMenu_Item.Name = newName;
                 newMenu_Item.TotalCost = totalCost;
                 newMenu_Item.IsPopular = isPopular;
                 newMenu_Item.Recipe = recipe;
@@ -412,10 +474,10 @@ namespace COGS_Calculator.Services
 
 
 
-                if (!CheckMenuItem(name))
+                if (!CheckMenuItem(newName))
                 {
 
-                    string insertMenuItem = $"INSERT INTO menu_item (Name, TotalCost, IsPopular) VALUES ('{name}', {totalCost}, {b_check(isPopular)});";
+                    string insertMenuItem = $"INSERT INTO menu_item (Name, TotalCost, IsPopular, LastUpdated, LastUpdatedBy) VALUES ('{newName}', {totalCost}, {b_check(isPopular)}, '{DateTime.UtcNow.ToLocalTime().ToString(format)}', '{CurrentUser}');";
                     MySqlCommand insertMenuItemCmd = new(insertMenuItem, Conn);
                     insertMenuItemCmd.ExecuteNonQuery();
 
@@ -487,7 +549,7 @@ namespace COGS_Calculator.Services
                 }
             }
 
-            string updateMenuItemString = $"UPDATE menu_item SET Name = '{name}', TotalCost = {cost}, IsPopular = {b_check(isPopular)} WHERE Id = {id};" ;
+            string updateMenuItemString = $"UPDATE menu_item SET Name = '{name}', TotalCost = {cost}, IsPopular = {b_check(isPopular)}, LastUpdated = '{DateTime.UtcNow.ToLocalTime().ToString(format)}', LastUpdatedBy = '{CurrentUser}' WHERE Id = {id};" ;
             MySqlCommand updateMenuItem = new(updateMenuItemString, Conn);
             updateMenuItem.ExecuteNonQuery();
 
@@ -646,17 +708,19 @@ namespace COGS_Calculator.Services
         #region Menu Methods
         public static void InsertMenu(string name, int personCount, string notes, List<Menu_Item> menuItems)
         {
-            string insertMenu = $"INSERT INTO menu (Name, PersonCount, Notes) VALUES ('{name}', {personCount}, '{notes}');";
+
+            string newName = name.Replace(" ", "_");
+            string insertMenu = $"INSERT INTO menu (Name, PersonCount, Notes, LastUpdated, LastUpdateBy) VALUES ('{newName}', {personCount}, '{notes}', '{DateTime.UtcNow.ToLocalTime().ToString(format)}', '{CurrentUser}' );";
             MySqlCommand insertMenuCmd = new(insertMenu, Conn);
             insertMenuCmd.ExecuteNonQuery();
 
-            string createMenuList = $"CREATE TABLE {name.ToLower()} ( MenuItemId INT, MenuItemName VARCHAR(45), TotalCost FLOAT);";
+            string createMenuList = $"CREATE TABLE {newName.ToLower()} ( MenuItemId INT, MenuItemName VARCHAR(45), TotalCost FLOAT);";
             MySqlCommand createMenuListCmd = new(createMenuList, Conn);
             createMenuListCmd.ExecuteNonQuery();
 
             foreach (Menu_Item item in menuItems)
             {
-                string insertMenuItem = $"INSERT INTO {name.ToLower()} VALUES ({item.Id}, '{item.Name}', {item.TotalCost});";
+                string insertMenuItem = $"INSERT INTO {newName.ToLower()} VALUES ({item.Id}, '{item.Name}', {item.TotalCost});";
                 MySqlCommand insertMenuItemCmd = new(insertMenuItem, Conn);
                 insertMenuItemCmd.ExecuteNonQuery();
             }
@@ -685,7 +749,7 @@ namespace COGS_Calculator.Services
         {
 
 
-            string updateMenuString = $"UPDATE menu SET Name= '{name}', PersonCount= {personCount}, Notes= '{notes}' WHERE Id = {id};";
+            string updateMenuString = $"UPDATE menu SET Name= '{name}', PersonCount= {personCount}, Notes= '{notes}', LastUpdated = '{DateTime.UtcNow.ToLocalTime().ToString(format)}', LastUpdatedBy = '{CurrentUser}' WHERE Id = {id};";
             MySqlCommand updateMenuCmd = new(updateMenuString, Conn);
             updateMenuCmd.ExecuteNonQuery();
 
@@ -725,7 +789,13 @@ namespace COGS_Calculator.Services
 
         public static void SyncMenus()
         {
-            Menu newMenu = new();
+
+            string getMenuCount = "SELECT COUNT(*) FROM menu;";
+            MySqlCommand getMenuCountCommand = new(getMenuCount, Conn);
+            Object countResult = getMenuCountCommand.ExecuteScalar();
+
+
+            
             //Menu_Item newMenu_Item = new();
 
             string syncMenus = "SELECT * FROM menu;";
@@ -734,53 +804,61 @@ namespace COGS_Calculator.Services
 
             while (syncMenuReader.Read())
             {
+                Menu newMenu = new();
                 newMenu.Id = int.Parse($"{syncMenuReader[0]}");
                 newMenu.MenuName = $"{syncMenuReader[1]}";
                 newMenu.PersonCount = int.Parse($"{syncMenuReader[2]}");
                 newMenu.MenuNotes = $"{syncMenuReader[3]}";
 
+                if (!CheckMenu(newMenu.Id))
+                {
+                    All_Menus.Add(newMenu);
+
+                }
+
             }
 
             syncMenuReader.Close();
 
-            if (!CheckMenu(newMenu.Id))
-            {
-                All_Menus.Add(newMenu);
-               
-            }
+           
 
-            foreach (Menu menu in All_Menus)
+            if (int.Parse($"{countResult}") >=1)
             {
-                string syncMenuList = $"SELECT * FROM {menu.MenuName.ToLower()}";
-                MySqlCommand syncMenuListCmd = new(syncMenuList, Conn);
-                MySqlDataReader syncMenuListReader = syncMenuListCmd.ExecuteReader();
-
-                while (syncMenuListReader.Read())
+                foreach (Menu menu in All_Menus)
                 {
-                    Menu_Item newMenu_Item = GetMenuItem(int.Parse($"{syncMenuListReader[0]}"));
+                    string syncMenuList = $"SELECT * FROM {menu.MenuName.ToLower()}";
+                    MySqlCommand syncMenuListCmd = new(syncMenuList, Conn);
+                    MySqlDataReader syncMenuListReader = syncMenuListCmd.ExecuteReader();
 
-                    if (newMenu_Item != null)
+                    while (syncMenuListReader.Read())
                     {
-                        if (!menu.MenuItems.Contains(newMenu_Item))
-                        {
+                        Menu_Item newMenu_Item = GetMenuItem(int.Parse($"{syncMenuListReader[0]}"));
 
-                            menu.MenuItems.Add(newMenu_Item);
+                        if (newMenu_Item != null)
+                        {
+                            if (!menu.MenuItems.Contains(newMenu_Item))
+                            {
+
+                                menu.MenuItems.Add(newMenu_Item);
+                            }
+
                         }
 
-                    }
 
-                   
-                    
+
+
+                    }
+                    syncMenuListReader.Close();
+
+
+
+
 
                 }
-                syncMenuListReader.Close();
-
-               
-               
-
-
             }
-            
+
+
+
 
 
         }
@@ -814,7 +892,7 @@ namespace COGS_Calculator.Services
         {
             foreach (Menu menu in All_Menus)
             {
-                if (menu.Id == id) { return true; }
+                if (menu.Id == id && menu.MenuName != null) { return true; }
                 
             }
 

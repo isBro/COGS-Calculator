@@ -46,6 +46,8 @@
             CategoryLabel = new Label();
             UoMComboBox = new ComboBox();
             CategoryComboBox = new ComboBox();
+            Search_Label = new Label();
+            Ingredient_SearchBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)IngredientsDataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -214,11 +216,29 @@
             CategoryComboBox.Size = new Size(100, 23);
             CategoryComboBox.TabIndex = 35;
             // 
+            // Search_Label
+            // 
+            Search_Label.AutoSize = true;
+            Search_Label.Location = new Point(628, 17);
+            Search_Label.Name = "Search_Label";
+            Search_Label.Size = new Size(42, 15);
+            Search_Label.TabIndex = 44;
+            Search_Label.Text = "Search";
+            // 
+            // Ingredient_SearchBox
+            // 
+            Ingredient_SearchBox.Location = new Point(687, 14);
+            Ingredient_SearchBox.Name = "Ingredient_SearchBox";
+            Ingredient_SearchBox.Size = new Size(100, 23);
+            Ingredient_SearchBox.TabIndex = 43;
+            // 
             // ManageIngredientsView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(884, 450);
+            Controls.Add(Search_Label);
+            Controls.Add(Ingredient_SearchBox);
             Controls.Add(CategoryComboBox);
             Controls.Add(UoMComboBox);
             Controls.Add(CategoryLabel);
@@ -268,5 +288,7 @@
         private Label CategoryLabel;
         private ComboBox UoMComboBox;
         private ComboBox CategoryComboBox;
+        private Label Search_Label;
+        private TextBox Ingredient_SearchBox;
     }
 }

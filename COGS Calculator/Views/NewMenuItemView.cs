@@ -175,7 +175,11 @@ namespace COGS_Calculator.Views
             //exception handling 
 
             ReloadData();
-            ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+            if (DB_Connection.All_Ingredients.Count >=1)
+            {
+                ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+            }
+            
 
             if (newRecipe.Count == 0)
             {

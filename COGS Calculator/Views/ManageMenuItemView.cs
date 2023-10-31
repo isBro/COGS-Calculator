@@ -25,6 +25,7 @@ namespace COGS_Calculator
         public Dictionary<string, double> currentRecipe = new();
 
         public List<Ingredient> ingredientList = new();
+        public List<Menu_Item> menuItemList = new();
 
         public Ingredient ingredient = new();
 
@@ -140,9 +141,10 @@ namespace COGS_Calculator
         {
 
             ingredientList = DB_Connection.All_Ingredients.Where(Ingredient => !currentRecipe.ContainsKey(Ingredient.Name)).ToList();
+            menuItemList = DB_Connection.All_Menu_Items;
 
 
-            var AllMenuItemBindingList = new BindingList<Menu_Item>(DB_Connection.All_Menu_Items);
+            var AllMenuItemBindingList = new BindingList<Menu_Item>(menuItemList);
             var MenuItemSource = new BindingSource(AllMenuItemBindingList, null);
 
             var IngredientsBindingList = new BindingList<Ingredient>(ingredientList);
@@ -155,19 +157,19 @@ namespace COGS_Calculator
             All_IngredientsView.DataSource = IngredientsSource;
             All_Menu_Items_View.DataSource = MenuItemSource;
 
-            if (ingredientList.Count>0)
+            if (ingredientList.Count > 0)
             {
                 ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
             }
 
-            if (DB_Connection.All_Menu_Items.Count>0)
+            if (DB_Connection.All_Menu_Items.Count > 0)
             {
                 currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
                 currentRecipe = currentMenuItem.Recipe;
 
             }
 
-            
+
 
 
         }
@@ -230,7 +232,16 @@ namespace COGS_Calculator
 
         private void All_Ingredients_Clicked(object sender, EventArgs e)
         {
-            ingredient = ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+            if (DB_Connection.All_Ingredients.Count >= 1)
+            {
+                ingredient = ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+            }
+
+        }
+
+        private void Menu_ItemSearch_Text_Changed(object sender, EventArgs e)
+        {
+            menuItemList = DB_Connection.All_Menu_Items.Where(Menu_Item=> Menu_Item.Name.ToLower().StartsWith(Menu_Item_SearchBox.Text.ToLower())).ToList();
         }
     }
 

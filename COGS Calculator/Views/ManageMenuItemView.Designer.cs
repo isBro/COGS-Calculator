@@ -256,6 +256,7 @@
             Menu_Item_SearchBox.Name = "Menu_Item_SearchBox";
             Menu_Item_SearchBox.Size = new Size(100, 23);
             Menu_Item_SearchBox.TabIndex = 41;
+            Menu_Item_SearchBox.TextChanged += Menu_ItemSearch_Text_Changed;
             // 
             // Search_Label
             // 

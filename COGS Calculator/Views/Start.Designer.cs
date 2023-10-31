@@ -48,6 +48,7 @@
             menuStrip1.Size = new Size(1477, 24);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
+            menuStrip1.ItemClicked += menuStrip1_ItemClicked;
             // 
             // newToolStripMenuItem
             // 
@@ -101,7 +102,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 2, 3, 2);
             Name = "Start";
-            Text = "Form1";
+            Text = "COGS Calculator";
             Activated += StartViewActivated;
             Load += Start_Load;
             menuStrip1.ResumeLayout(false);

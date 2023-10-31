@@ -56,6 +56,7 @@ namespace COGS_Calculator.Services
                     listIngredient = DB_Connection.GetIngredient(key);
                  
                     double startingQ = listIngredient.Quantity;
+
                     if (!IngredientReportList.Contains(listIngredient))
                     {
                         listIngredient.Quantity = (menuItem.Recipe[key] * listIngredient.Quantity) * menu.PersonCount;
@@ -63,10 +64,10 @@ namespace COGS_Calculator.Services
                     }
                     else
                     {
-                        /////?????
-                        ///
 
+                        ///////////// fix ///////
                         listIngredient.Quantity += (menuItem.Recipe[key] * listIngredient.Quantity) * menu.PersonCount;
+
                     }
 
                     

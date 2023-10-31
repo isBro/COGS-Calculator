@@ -123,6 +123,7 @@ namespace COGS_Calculator.Views
             if (menu.MenuItems.Count < 1)
             {
                 Remove_Menu_Item_Button.Enabled = false;
+               
             }
 
             MenuNameTextBox.Text = menu.MenuName;
