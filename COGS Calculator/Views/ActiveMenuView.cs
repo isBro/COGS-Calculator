@@ -80,53 +80,15 @@ namespace COGS_Calculator.Views
 
         private void TotalCostButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private List<Ingredient> calculateIngredientTotals(Menu menu)
-        {
-
-            //IngredientReportList.Clear();
             
-            Ingredient ListIngredient;
-            Ingredient newIngredient = new();
-            Menu_Item newMenuItem = new();
-            double iQuantity;
+            double cost = MenuServices.GetTotalCost(menu);
+            double suggestedPrice = cost * 5;
 
-            foreach (Menu_Item menuItem in menu.MenuItems)
-            {
-                newMenuItem = DB_Connection.GetMenuItem(menuItem.Id);
+            string message = $"The total cost of this menu is ${cost} \n  Suggested billable total: {suggestedPrice}";
 
-                foreach (var key in newMenuItem.Recipe.Keys)
-                {
-                    ListIngredient = DB_Connection.GetIngredient(key);
-
-                    newIngredient.Name = ListIngredient.Name;
-                    newIngredient.Quantity = ListIngredient.Quantity;
-                    newIngredient.UnitCost = ListIngredient.UnitCost;
-                    newIngredient.UoM = ListIngredient.UoM;
-                    newIngredient.Category = ListIngredient.Category;
-                    newIngredient.Id = ListIngredient.Id;
-
-                    Console.WriteLine($"{ListIngredient.Name}");
-                    
-                    if (IngredientReportList.Contains(newIngredient))
-                    {
-                        iQuantity = newIngredient.Quantity * newMenuItem.Recipe[newIngredient.Name];
-                        newIngredient.Quantity += iQuantity;
-
-                    }
-
-                    else
-                    {
-                        iQuantity = newIngredient.Quantity * newMenuItem.Recipe[newIngredient.Name];
-                        newIngredient.Quantity = iQuantity;
-                        IngredientReportList.Add(newIngredient);
-                    }
-                }
-            }
-
-            return IngredientReportList;
+            MessageBox.Show(message, "Result", MessageBoxButtons.OK, MessageBoxIcon.Information );
         }
+
+        
     }
 }
