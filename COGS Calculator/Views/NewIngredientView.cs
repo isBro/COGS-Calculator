@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using COGS_Calculator.Services;
+using MySqlX.XDevAPI.Common;
 
 namespace COGS_Calculator.Views
 {
@@ -21,6 +22,30 @@ namespace COGS_Calculator.Views
         private void SaveIngredientButton_Click(object sender, EventArgs e)
         {
             //need to add exception handling here
+
+            if (string.IsNullOrWhiteSpace(IngredientNameTextBox.Text))
+            {
+
+            }
+
+            if (string.IsNullOrWhiteSpace(QuantityTextBox.Text)){
+
+            }
+
+            if (string.IsNullOrWhiteSpace(CostTextBox.Text))
+            {
+
+            }
+
+            if (!double.TryParse(CostTextBox.Text, out double Result))
+            {
+
+            }
+
+            if (!double.TryParse(QuantityTextBox.Text, out double result))
+            {
+
+            }
 
             double quantity = double.Parse(QuantityTextBox.Text);
             double cost = double.Parse(CostTextBox.Text);

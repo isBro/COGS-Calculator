@@ -31,9 +31,8 @@
             PersonCountLabel = new Label();
             NotesLabel = new Label();
             MenuNameLabel = new Label();
-            button5 = new Button();
+            TotalCostButton = new Button();
             ActiveMenuGridView = new DataGridView();
-            PrintButton = new Button();
             IngredientViewButton = new Button();
             MenuItemViewButton = new Button();
             BackButton = new Button();
@@ -68,14 +67,15 @@
             MenuNameLabel.TabIndex = 15;
             MenuNameLabel.Text = "Menu Name";
             // 
-            // button5
+            // TotalCostButton
             // 
-            button5.Location = new Point(486, 15);
-            button5.Name = "button5";
-            button5.Size = new Size(75, 23);
-            button5.TabIndex = 14;
-            button5.Text = "button5";
-            button5.UseVisualStyleBackColor = true;
+            TotalCostButton.Location = new Point(486, 15);
+            TotalCostButton.Name = "TotalCostButton";
+            TotalCostButton.Size = new Size(75, 23);
+            TotalCostButton.TabIndex = 14;
+            TotalCostButton.Text = "Total Cost";
+            TotalCostButton.UseVisualStyleBackColor = true;
+            TotalCostButton.Click += TotalCostButton_Click;
             // 
             // ActiveMenuGridView
             // 
@@ -85,15 +85,6 @@
             ActiveMenuGridView.RowTemplate.Height = 25;
             ActiveMenuGridView.Size = new Size(547, 240);
             ActiveMenuGridView.TabIndex = 13;
-            // 
-            // PrintButton
-            // 
-            PrintButton.Location = new Point(226, 337);
-            PrintButton.Name = "PrintButton";
-            PrintButton.Size = new Size(75, 23);
-            PrintButton.TabIndex = 12;
-            PrintButton.Text = "Print";
-            PrintButton.UseVisualStyleBackColor = true;
             // 
             // IngredientViewButton
             // 
@@ -133,9 +124,8 @@
             Controls.Add(PersonCountLabel);
             Controls.Add(NotesLabel);
             Controls.Add(MenuNameLabel);
-            Controls.Add(button5);
+            Controls.Add(TotalCostButton);
             Controls.Add(ActiveMenuGridView);
-            Controls.Add(PrintButton);
             Controls.Add(IngredientViewButton);
             Controls.Add(MenuItemViewButton);
             Controls.Add(BackButton);
@@ -152,9 +142,8 @@
         private Label PersonCountLabel;
         private Label NotesLabel;
         private Label MenuNameLabel;
-        private Button button5;
+        private Button TotalCostButton;
         private DataGridView ActiveMenuGridView;
-        private Button PrintButton;
         private Button IngredientViewButton;
         private Button MenuItemViewButton;
         private Button BackButton;

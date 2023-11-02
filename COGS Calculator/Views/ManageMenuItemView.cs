@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace COGS_Calculator
 {
     public partial class ManageMenuItemView : Form
@@ -135,6 +136,14 @@ namespace COGS_Calculator
         private void ManageMenuItemView_Load(object sender, EventArgs e)
         {
             ReloadData();
+
+            if (DB_Connection.All_Menu_Items.Count > 0)
+            {
+                currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
+                currentRecipe = currentMenuItem.Recipe;
+
+            }
+
         }
 
         public void ReloadData()
@@ -164,12 +173,12 @@ namespace COGS_Calculator
 
             if (DB_Connection.All_Menu_Items.Count > 0)
             {
-                currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
+                //currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
                 currentRecipe = currentMenuItem.Recipe;
 
             }
 
-
+            //DB_Connection.SyncMenuItems();
 
 
         }
@@ -194,7 +203,32 @@ namespace COGS_Calculator
 
             currentRecipe = currentMenuItem.Recipe;
 
-            ReloadData();
+            ingredientList = DB_Connection.All_Ingredients.Where(Ingredient => !currentRecipe.ContainsKey(Ingredient.Name)).ToList();
+            menuItemList = DB_Connection.All_Menu_Items;
+
+
+            var IngredientsBindingList = new BindingList<Ingredient>(ingredientList);
+            var IngredientsSource = new BindingSource(IngredientsBindingList, null);
+
+            var RecipeBindingSource = new BindingSource(currentRecipe.ToList(), null);
+
+
+            All_Recipe_IngredientsView.DataSource = RecipeBindingSource;
+            All_IngredientsView.DataSource = IngredientsSource;
+
+            if (ingredientList.Count > 0)
+            {
+                ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+            }
+
+            if (DB_Connection.All_Menu_Items.Count > 0)
+            {
+                currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
+                currentRecipe = currentMenuItem.Recipe;
+
+            }
+
+            //ReloadData();
 
         }
 
@@ -241,7 +275,42 @@ namespace COGS_Calculator
 
         private void Menu_ItemSearch_Text_Changed(object sender, EventArgs e)
         {
-            menuItemList = DB_Connection.All_Menu_Items.Where(Menu_Item=> Menu_Item.Name.ToLower().StartsWith(Menu_Item_SearchBox.Text.ToLower())).ToList();
+            menuItemList = DB_Connection.All_Menu_Items.Where(Menu_Item => Menu_Item.Name.ToLower().StartsWith(Menu_Item_SearchBox.Text.ToLower())).ToList();
+            var AllMenuItemBindingList = new BindingList<Menu_Item>(menuItemList);
+            var MenuItemSource = new BindingSource(AllMenuItemBindingList, null);
+
+            All_Menu_Items_View.DataSource = MenuItemSource;
+        }
+
+        private void DeleteMenu_ItemButton_Click(object sender, EventArgs e)
+        {
+            bool ItemInUseBool = false;
+
+            foreach (Menu menu in DB_Connection.All_Menus)
+            {
+                if (menu.MenuItems.Contains(currentMenuItem)){
+
+                    ItemInUseBool = true;
+
+                }
+            }
+
+            if (ItemInUseBool)
+            {
+                MessageBox.Show("You cannot delete this item while it is in use a menu. Please remove from menu first.");
+                return;
+            }
+
+
+
+
+            string message = "This cannot be undone. Are you sure you want to delete this menu item?";
+            DialogResult = MessageBox.Show(message, "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (DialogResult == DialogResult.Yes)
+            {
+                DB_Connection.DeleteMenuItem(currentMenuItem.Id);
+            }
         }
     }
 

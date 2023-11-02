@@ -20,10 +20,12 @@ namespace COGS_Calculator.Views
             InitializeComponent();
         }
 
-        public Menu menu = new();
+        public Menu menu { get; set; }
 
-        //public Dictionary<string, double> IngredientReportList = new();
-        public List<Ingredient> IngredientReportList = new();
+
+        List<Ingredient> IngredientReportList = new();
+        Dictionary<string, double> IngredientTotals = new();
+
 
         public ActiveMenuView(Form callingForm)
         {
@@ -32,22 +34,26 @@ namespace COGS_Calculator.Views
             ManageMenuView manageMenuView = callingForm as ManageMenuView;
 
             menu = DB_Connection.GetMenu(ManageMenuView.menuId);
-            //IngredientReportList = MenuServices.GetIngredientQuantities(menu);
-            IngredientReportList = MenuServices.IngredientTotalsPerMenu(menu);
+
+
         }
 
         private void BackButton_Click(object sender, EventArgs e)
         {
+            this.Refresh();
             this.Close();
         }
 
         private void IngredientViewButton_Click(object sender, EventArgs e)
         {
 
-            //BindingSource IngredientTotalsSource = new BindingSource(IngredientReportList.ToList(), null);
-            //ActiveMenuGridView.DataSource = IngredientTotalsSource;
+            //List<Ingredient> newList = calculateIngredientTotals(menu);
 
-            BindingSource IngredientTotalsSource = new BindingSource(IngredientReportList, null);
+            IngredientTotals = MenuServices.GetIngredientQuantities(menu);
+
+
+
+            BindingSource IngredientTotalsSource = new BindingSource(IngredientTotals.ToList(), null);
             ActiveMenuGridView.DataSource = IngredientTotalsSource;
 
         }
@@ -70,6 +76,57 @@ namespace COGS_Calculator.Views
             MenuNameLabel.Text = "Menu Name: " + menu.MenuName;
             PersonCountLabel.Text = $"Guest Count: {menu.PersonCount}";
             NotesLabel.Text = $"Notes: \n{menu.MenuNotes}";
+        }
+
+        private void TotalCostButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private List<Ingredient> calculateIngredientTotals(Menu menu)
+        {
+
+            //IngredientReportList.Clear();
+            
+            Ingredient ListIngredient;
+            Ingredient newIngredient = new();
+            Menu_Item newMenuItem = new();
+            double iQuantity;
+
+            foreach (Menu_Item menuItem in menu.MenuItems)
+            {
+                newMenuItem = DB_Connection.GetMenuItem(menuItem.Id);
+
+                foreach (var key in newMenuItem.Recipe.Keys)
+                {
+                    ListIngredient = DB_Connection.GetIngredient(key);
+
+                    newIngredient.Name = ListIngredient.Name;
+                    newIngredient.Quantity = ListIngredient.Quantity;
+                    newIngredient.UnitCost = ListIngredient.UnitCost;
+                    newIngredient.UoM = ListIngredient.UoM;
+                    newIngredient.Category = ListIngredient.Category;
+                    newIngredient.Id = ListIngredient.Id;
+
+                    Console.WriteLine($"{ListIngredient.Name}");
+                    
+                    if (IngredientReportList.Contains(newIngredient))
+                    {
+                        iQuantity = newIngredient.Quantity * newMenuItem.Recipe[newIngredient.Name];
+                        newIngredient.Quantity += iQuantity;
+
+                    }
+
+                    else
+                    {
+                        iQuantity = newIngredient.Quantity * newMenuItem.Recipe[newIngredient.Name];
+                        newIngredient.Quantity = iQuantity;
+                        IngredientReportList.Add(newIngredient);
+                    }
+                }
+            }
+
+            return IngredientReportList;
         }
     }
 }

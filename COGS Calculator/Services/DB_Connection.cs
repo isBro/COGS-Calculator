@@ -285,16 +285,6 @@ namespace COGS_Calculator.Services
 
 
 
-
-            
-
-
-
-
-
-
-
-
         }
 
         public static bool CheckIngredient(int id, string name)
@@ -427,11 +417,6 @@ namespace COGS_Calculator.Services
             {
                 MessageBox.Show(ex.Message);
             }
-
-           
-
-
-
      
 
         }
@@ -523,6 +508,12 @@ namespace COGS_Calculator.Services
                         All_Menu_Items.Remove(item);
                     }
                 }
+
+                string menu_Item_Name = GetMenuItem(id).Name;
+
+                string dropMenuItemTable = $"DROP TABLE {menu_Item_Name.ToLower()}_recipe;";
+                MySqlCommand dropMenuItemCommand = new(dropMenuItemTable, Conn);
+                dropMenuItemCommand.ExecuteNonQuery();
             }
 
             catch (Exception ex)
@@ -620,10 +611,10 @@ namespace COGS_Calculator.Services
             MySqlCommand cmd = new(getMenuItems, Conn);
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            string currentId = "";
-            string currentName = "";
-            string currentTotalCost = "";
-            string currentIsPopular = "";
+            string currentId;
+            string currentName;
+            string currentTotalCost;
+            string currentIsPopular;
 
             while (reader.Read())
             {
@@ -640,16 +631,16 @@ namespace COGS_Calculator.Services
 
                 if (!CheckMenuItem(newMenuItem.Id)){
 
-
-                    All_Menu_Items.Add(newMenuItem);
+                    
+                        All_Menu_Items.Add(newMenuItem);
+                    
+                    
 
                 }
 
             }
 
             reader.Close();
-
-           
 
             foreach (Menu_Item item in All_Menu_Items)
             {
@@ -671,9 +662,6 @@ namespace COGS_Calculator.Services
 
                 recipeReader.Close();
             }
-
-          
-
 
 
         }
@@ -708,9 +696,9 @@ namespace COGS_Calculator.Services
         #region Menu Methods
         public static void InsertMenu(string name, int personCount, string notes, List<Menu_Item> menuItems)
         {
-
+            
             string newName = name.Replace(" ", "_");
-            string insertMenu = $"INSERT INTO menu (Name, PersonCount, Notes, LastUpdated, LastUpdateBy) VALUES ('{newName}', {personCount}, '{notes}', '{DateTime.UtcNow.ToLocalTime().ToString(format)}', '{CurrentUser}' );";
+            string insertMenu = $"INSERT INTO menu (Name, PersonCount, Notes, LastUpdated, LastUpdatedBy) VALUES ('{newName}', {personCount}, '{notes}', '{DateTime.UtcNow.ToLocalTime().ToString(format)}', '{CurrentUser}');";
             MySqlCommand insertMenuCmd = new(insertMenu, Conn);
             insertMenuCmd.ExecuteNonQuery();
 
@@ -725,7 +713,7 @@ namespace COGS_Calculator.Services
                 insertMenuItemCmd.ExecuteNonQuery();
             }
 
-            Menu newMenu = new(name, personCount, notes);
+            Menu newMenu = new(newName, personCount, notes);
             newMenu.MenuItems = menuItems;
 
             All_Menus.Add(newMenu);

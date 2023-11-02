@@ -45,6 +45,21 @@ namespace COGS_Calculator.Views
         {
             //add exception handling here 
 
+            if (string.IsNullOrWhiteSpace(Name_TextBox.Text))
+            {
+
+            }
+
+            if (string.IsNullOrWhiteSpace(TotalCost_TextBox.Text)){
+
+            }
+
+            if (!double.TryParse(TotalCost_TextBox.Text, out double Result))
+            {
+
+            }
+
+
             newMenuItem.Name = Name_TextBox.Text;
             newMenuItem.TotalCost = double.Parse(TotalCost_TextBox.Text);
             newMenuItem.IsPopular = IsPopular_Button.Checked;

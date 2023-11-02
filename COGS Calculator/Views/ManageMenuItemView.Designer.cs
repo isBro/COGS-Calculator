@@ -50,6 +50,7 @@
             All_Menu_Items_View = new DataGridView();
             Menu_Item_SearchBox = new TextBox();
             Search_Label = new Label();
+            DeleteMenu_ItemButton = new Button();
             ((System.ComponentModel.ISupportInitialize)All_IngredientsView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)All_Recipe_IngredientsView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)All_Menu_Items_View).BeginInit();
@@ -162,7 +163,7 @@
             // 
             // Recipe_Remove_Button
             // 
-            Recipe_Remove_Button.Location = new Point(479, 522);
+            Recipe_Remove_Button.Location = new Point(529, 523);
             Recipe_Remove_Button.Name = "Recipe_Remove_Button";
             Recipe_Remove_Button.Size = new Size(75, 23);
             Recipe_Remove_Button.TabIndex = 13;
@@ -219,7 +220,7 @@
             // 
             // Edit_Quantity_Button
             // 
-            Edit_Quantity_Button.Location = new Point(326, 522);
+            Edit_Quantity_Button.Location = new Point(301, 523);
             Edit_Quantity_Button.Name = "Edit_Quantity_Button";
             Edit_Quantity_Button.Size = new Size(75, 23);
             Edit_Quantity_Button.TabIndex = 19;
@@ -230,7 +231,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(414, 107);
+            label7.Location = new Point(414, 69);
             label7.Name = "label7";
             label7.Size = new Size(87, 15);
             label7.TabIndex = 40;
@@ -241,7 +242,7 @@
             All_Menu_Items_View.AllowUserToAddRows = false;
             All_Menu_Items_View.AllowUserToDeleteRows = false;
             All_Menu_Items_View.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            All_Menu_Items_View.Location = new Point(278, 139);
+            All_Menu_Items_View.Location = new Point(278, 101);
             All_Menu_Items_View.Name = "All_Menu_Items_View";
             All_Menu_Items_View.ReadOnly = true;
             All_Menu_Items_View.RowTemplate.Height = 25;
@@ -252,9 +253,9 @@
             // 
             // Menu_Item_SearchBox
             // 
-            Menu_Item_SearchBox.Location = new Point(838, 19);
+            Menu_Item_SearchBox.Location = new Point(827, 19);
             Menu_Item_SearchBox.Name = "Menu_Item_SearchBox";
-            Menu_Item_SearchBox.Size = new Size(100, 23);
+            Menu_Item_SearchBox.Size = new Size(128, 23);
             Menu_Item_SearchBox.TabIndex = 41;
             Menu_Item_SearchBox.TextChanged += Menu_ItemSearch_Text_Changed;
             // 
@@ -267,11 +268,22 @@
             Search_Label.TabIndex = 42;
             Search_Label.Text = "Search";
             // 
+            // DeleteMenu_ItemButton
+            // 
+            DeleteMenu_ItemButton.Location = new Point(529, 267);
+            DeleteMenu_ItemButton.Name = "DeleteMenu_ItemButton";
+            DeleteMenu_ItemButton.Size = new Size(75, 23);
+            DeleteMenu_ItemButton.TabIndex = 43;
+            DeleteMenu_ItemButton.Text = "Delete";
+            DeleteMenu_ItemButton.UseVisualStyleBackColor = true;
+            DeleteMenu_ItemButton.Click += DeleteMenu_ItemButton_Click;
+            // 
             // ManageMenuItemView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1162, 558);
+            Controls.Add(DeleteMenu_ItemButton);
             Controls.Add(Search_Label);
             Controls.Add(Menu_Item_SearchBox);
             Controls.Add(label7);
@@ -329,5 +341,6 @@
         private DataGridView All_Menu_Items_View;
         private TextBox Menu_Item_SearchBox;
         private Label Search_Label;
+        private Button DeleteMenu_ItemButton;
     }
 }

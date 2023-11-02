@@ -68,6 +68,7 @@ namespace COGS_Calculator
             UoMComboBox.DataSource = MenuServices.UoMList;
             UoMComboBox.SelectedIndex = 0;
 
+            DB_Connection.SyncIngredients();
 
 
         }
@@ -97,8 +98,17 @@ namespace COGS_Calculator
 
         private void DeleteIngredientButton_Click(object sender, EventArgs e)
 
-        ///check to see if ingredient is inmenu item before deleting 
         {
+            foreach (Menu_Item item in DB_Connection.All_Menu_Items)
+            {
+                if (item.Recipe.Keys.Contains(ingredient.Name))
+                {
+                    MessageBox.Show("This ingredient is associated with at least one menu_item. Please remove ingredient from all menu items to delete.");
+                    return;
+                }
+            }
+
+
             string message = "This cannot be undone, are you sure you want to delete?";
             DialogResult result = MessageBox.Show(message, "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 

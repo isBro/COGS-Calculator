@@ -23,13 +23,33 @@ namespace COGS_Calculator
         }
 
         public Menu newMenu = new();
-        public List<Menu_Item> allAvailableItems = new List<Menu_Item>();
+        public List<Menu_Item> allAvailableItems = new();
         public Menu_Item selectedMenuItem = new();
         public Menu_Item currentMenuItem = new();
 
         private void Save_Menu_Button_Click(object sender, EventArgs e)
         {
             // exception handling needed
+
+            if (string.IsNullOrWhiteSpace(MenuNameTextBox.Text))
+            {
+
+            }
+
+            if (string.IsNullOrWhiteSpace(PersonCountTextBox.Text)){
+
+            }
+
+            if (string.IsNullOrWhiteSpace(NotesTextBox.Text))
+            {
+
+            }
+
+            if (!int.TryParse(PersonCountTextBox.Text, out int Result))
+            {
+
+            }
+
 
             newMenu.MenuName = MenuNameTextBox.Text;
             newMenu.PersonCount = int.Parse($"{PersonCountTextBox.Text}");
@@ -47,16 +67,24 @@ namespace COGS_Calculator
                 AddMenu_Item_Button.Enabled = false;
                 newMenu.MenuItems.Add(selectedMenuItem);
                 Remove_Menu_Item_Button.Enabled = true;
+                ReloadData();
+
             }
             else
             {
                 newMenu.MenuItems.Add(selectedMenuItem);
                 Remove_Menu_Item_Button.Enabled = true;
+                ReloadData();
+
+                selectedMenuItem = DB_Connection.GetMenuItem(int.Parse($"{AllMenu_ItemDataGrid.SelectedCells[0].Value}"));
+            }
+
+            if (newMenu.MenuItems.Count == 1)
+            {
+                currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{CurrentMenu_ItemDataGrid.SelectedCells[0].Value}"));
             }
 
 
-
-            ReloadData();
         }
 
         private void Remove_Menu_Item_Button_Click(object sender, EventArgs e)
@@ -64,15 +92,21 @@ namespace COGS_Calculator
 
             if (newMenu.MenuItems.Count <= 1)
             {
+
                 newMenu.MenuItems.Remove(currentMenuItem);
                 Remove_Menu_Item_Button.Enabled = false;
+                ReloadData();
             }
             else
             {
                 newMenu.MenuItems.Remove(currentMenuItem);
+                
+                ReloadData();
+                currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{CurrentMenu_ItemDataGrid.SelectedCells[0].Value}"));
             }
 
-            ReloadData();
+            AddMenu_Item_Button.Enabled = true;
+
         }
 
         private void AddMenuView_Activated(object sender, EventArgs e)
@@ -83,6 +117,17 @@ namespace COGS_Calculator
             {
                 Remove_Menu_Item_Button.Enabled = false;
             }
+
+            if (allAvailableItems.Count < 0)
+            {
+                AddMenu_Item_Button.Enabled = false;
+            }
+            else
+            {
+                selectedMenuItem = DB_Connection.GetMenuItem(int.Parse($"{AllMenu_ItemDataGrid.SelectedCells[0].Value}"));
+            }
+
+            
         }
 
         private void ReloadData()

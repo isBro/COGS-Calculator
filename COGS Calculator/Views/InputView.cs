@@ -65,6 +65,15 @@ namespace COGS_Calculator.Views
             tempIngredient = Ingredient_Label.Text;
             tempQuantity = double.Parse(InputTextBox.Text);
 
+            if (string.IsNullOrWhiteSpace(InputTextBox.Text)) {
+                /// MESSAGE BOX
+                return;
+            }
+            if (double.TryParse(InputTextBox.Text, out double result))
+            {
+
+            }
+
             if (newMenuInputBool)
             {
                 NewMenuItemView.newRecipe[tempIngredient] = tempQuantity;

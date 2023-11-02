@@ -37,6 +37,12 @@ namespace COGS_Calculator
             var AllMenuBindingSource = new BindingSource(AllMenuBindingList, null);
 
             AllMenusDataGridView.DataSource = AllMenuBindingSource;
+
+            if (DB_Connection.All_Menus.Count > 0)
+            {
+                menuId = int.Parse($"{AllMenusDataGridView.SelectedCells[0].Value}");
+            }
+
         }
 
         private void ManageMenuViewActivated(object sender, EventArgs e)
@@ -49,11 +55,6 @@ namespace COGS_Calculator
                 UseMenuButton.Enabled = false;
                 EditMenuButton.Enabled = false;
                 DeleteMenuButton.Enabled = false;
-            }
-            else
-            {
-                ReloadData();
-                menuId = int.Parse($"{AllMenusDataGridView.SelectedCells[0].Value}");
             }
 
 
@@ -72,7 +73,14 @@ namespace COGS_Calculator
 
         private void DeleteMenuButton_Click(object sender, EventArgs e)
         {
+            string message = "This cannot be undone. Are you sure you want to delete this menu?";
+            DialogResult = MessageBox.Show(message,"Are you sure?",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
 
+            if (DialogResult== DialogResult.Yes)
+            {
+                Menu menu = DB_Connection.GetMenu(menuId);
+                DB_Connection.DeleteMenu(menuId, menu.MenuName);
+            }
 
             ReloadData();
         }
