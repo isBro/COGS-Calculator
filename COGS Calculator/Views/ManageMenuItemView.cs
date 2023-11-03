@@ -51,8 +51,24 @@ namespace COGS_Calculator
         private void MenuItem_Save_Button_Click(object sender, EventArgs e)
         {
 
-            //exception handling needed
 
+            if (string.IsNullOrWhiteSpace(Name_TextBox.Text))
+            {
+                MessageBox.Show("Name cannot be blank");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(TotalCost_TextBox.Text))
+            {
+                MessageBox.Show("Cost cannot be blank");
+                return;
+            }
+
+            if (!double.TryParse(TotalCost_TextBox.Text, out double Result))
+            {
+                MessageBox.Show("Please use a valid entry for TotalCost");
+                return;
+            }
 
 
             DB_Connection.UpdateMenuItem(currentMenuItem.Id, Name_TextBox.Text, currentMenuItem.TotalCost, IsPopular_Button.Checked, currentRecipe);
@@ -66,9 +82,10 @@ namespace COGS_Calculator
             if (ingredient.Name != null)
             {
                 currentRecipe.Add($"{ingredient.Name}", 1.0);
-                cost += (ingredient.UnitCost * currentRecipe[ingredient.Name]);
-                TotalCost_TextBox.Text = $"{cost}";
-                currentMenuItem.TotalCost = cost;
+
+                currentMenuItem.TotalCost = MenuServices.GetMenuItemCost(currentRecipe);
+
+                TotalCost_TextBox.Text = $"{currentMenuItem.TotalCost}";
 
 
             }
@@ -100,17 +117,8 @@ namespace COGS_Calculator
                 inputIngredientName = $"{All_Recipe_IngredientsView.SelectedCells[0].Value}";
                 inputQuantity = double.Parse($"{All_Recipe_IngredientsView.SelectedCells[1].Value}");
 
-                cost -= (ingredient.UnitCost * currentRecipe[inputIngredientName]);
+            
                 currentRecipe.Remove($"{inputIngredientName}");
-
-                //calculate cost
-
-                if (cost < 0) { }
-                {
-                    TotalCost_TextBox.Text = $"{0}";
-                    currentMenuItem.TotalCost = 0;
-                    cost = 0;
-                }
 
                 ReloadData();
 
@@ -131,6 +139,10 @@ namespace COGS_Calculator
                 Recipe_Remove_Button.Enabled = false;
                 Edit_Quantity_Button.Enabled = false;
             }
+
+            currentMenuItem.TotalCost = MenuServices.GetMenuItemCost(currentRecipe);
+            TotalCost_TextBox.Text = $"{currentMenuItem.TotalCost}";
+
         }
 
         private void ManageMenuItemView_Load(object sender, EventArgs e)
@@ -178,7 +190,7 @@ namespace COGS_Calculator
 
             }
 
-            //DB_Connection.SyncMenuItems();
+            DB_Connection.SyncMenuItems();
 
 
         }
@@ -238,18 +250,25 @@ namespace COGS_Calculator
             // exception handling needed
 
 
-            //ReloadData();
-            //ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
-
-            //currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
-            //currentRecipe = currentMenuItem.Recipe;
-
             ReloadData();
+           
 
-            ID_TextBox.Text = $"{currentMenuItem.Id}";
-            Name_TextBox.Text = $"{currentMenuItem.Name}";
-            TotalCost_TextBox.Text = $"{currentMenuItem.TotalCost}";
-            IsPopular_Button.Checked = currentMenuItem.IsPopular;
+            if (DB_Connection.All_Menu_Items.Count > 0)
+            {
+
+                ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+
+                currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
+                currentRecipe = currentMenuItem.Recipe;
+
+
+                ID_TextBox.Text = $"{currentMenuItem.Id}";
+                Name_TextBox.Text = $"{currentMenuItem.Name}";
+                TotalCost_TextBox.Text = $"{currentMenuItem.TotalCost}";
+                IsPopular_Button.Checked = currentMenuItem.IsPopular;
+            }
+
+         
 
             if (currentRecipe.Count == 0)
             {
@@ -280,6 +299,28 @@ namespace COGS_Calculator
             var MenuItemSource = new BindingSource(AllMenuItemBindingList, null);
 
             All_Menu_Items_View.DataSource = MenuItemSource;
+
+            if (menuItemList.Count != 0)
+            {
+
+                if (ingredientList.Count > 0)
+                {
+                    ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+                }
+
+                if (DB_Connection.All_Menu_Items.Count > 0)
+                {
+                    currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
+                    currentRecipe = currentMenuItem.Recipe;
+
+                }
+
+                ID_TextBox.Text = $"{currentMenuItem.Id}";
+                Name_TextBox.Text = $"{currentMenuItem.Name}";
+                TotalCost_TextBox.Text = $"{currentMenuItem.TotalCost}";
+                IsPopular_Button.Checked = currentMenuItem.IsPopular;
+
+            }
         }
 
         private void DeleteMenu_ItemButton_Click(object sender, EventArgs e)
@@ -310,7 +351,10 @@ namespace COGS_Calculator
             if (DialogResult == DialogResult.Yes)
             {
                 DB_Connection.DeleteMenuItem(currentMenuItem.Id);
+                MessageBox.Show("Menu Item deleted.");
             }
+
+            ReloadData();
         }
     }
 

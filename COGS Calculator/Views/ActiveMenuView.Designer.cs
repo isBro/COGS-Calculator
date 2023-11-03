@@ -34,7 +34,6 @@
             TotalCostButton = new Button();
             ActiveMenuGridView = new DataGridView();
             IngredientViewButton = new Button();
-            MenuItemViewButton = new Button();
             BackButton = new Button();
             printDocument1 = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)ActiveMenuGridView).BeginInit();
@@ -69,7 +68,7 @@
             // 
             // TotalCostButton
             // 
-            TotalCostButton.Location = new Point(486, 15);
+            TotalCostButton.Location = new Point(396, 15);
             TotalCostButton.Name = "TotalCostButton";
             TotalCostButton.Size = new Size(75, 23);
             TotalCostButton.TabIndex = 14;
@@ -96,16 +95,6 @@
             IngredientViewButton.UseVisualStyleBackColor = true;
             IngredientViewButton.Click += IngredientViewButton_Click;
             // 
-            // MenuItemViewButton
-            // 
-            MenuItemViewButton.Location = new Point(354, 15);
-            MenuItemViewButton.Name = "MenuItemViewButton";
-            MenuItemViewButton.Size = new Size(94, 23);
-            MenuItemViewButton.TabIndex = 10;
-            MenuItemViewButton.Text = "Menu Items";
-            MenuItemViewButton.UseVisualStyleBackColor = true;
-            MenuItemViewButton.Click += MenuItemViewButton_Click;
-            // 
             // BackButton
             // 
             BackButton.Location = new Point(12, 15);
@@ -127,7 +116,6 @@
             Controls.Add(TotalCostButton);
             Controls.Add(ActiveMenuGridView);
             Controls.Add(IngredientViewButton);
-            Controls.Add(MenuItemViewButton);
             Controls.Add(BackButton);
             Name = "ActiveMenuView";
             Text = "ActiveMenuView";
@@ -145,7 +133,6 @@
         private Button TotalCostButton;
         private DataGridView ActiveMenuGridView;
         private Button IngredientViewButton;
-        private Button MenuItemViewButton;
         private Button BackButton;
         private System.Drawing.Printing.PrintDocument printDocument1;
     }

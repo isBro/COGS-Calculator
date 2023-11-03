@@ -47,7 +47,7 @@ namespace COGS_Calculator.Views
         private void IngredientViewButton_Click(object sender, EventArgs e)
         {
 
-            //List<Ingredient> newList = calculateIngredientTotals(menu);
+         
 
             IngredientTotals = MenuServices.GetIngredientQuantities(menu);
 
@@ -80,15 +80,15 @@ namespace COGS_Calculator.Views
 
         private void TotalCostButton_Click(object sender, EventArgs e)
         {
-            
+
             double cost = MenuServices.GetTotalCost(menu);
             double suggestedPrice = cost * 5;
 
-            string message = $"The total cost of this menu is ${cost} \n  Suggested billable total: {suggestedPrice}";
+            string message = $"The total cost of this menu is ${cost} \n  Suggested billable total:    ${suggestedPrice}";
 
-            MessageBox.Show(message, "Result", MessageBoxButtons.OK, MessageBoxIcon.Information );
+            MessageBox.Show(message, "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        
+
     }
 }

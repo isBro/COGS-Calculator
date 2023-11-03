@@ -227,10 +227,11 @@
             // 
             // Ingredient_SearchBox
             // 
-            Ingredient_SearchBox.Location = new Point(687, 14);
+            Ingredient_SearchBox.Location = new Point(676, 14);
             Ingredient_SearchBox.Name = "Ingredient_SearchBox";
-            Ingredient_SearchBox.Size = new Size(100, 23);
+            Ingredient_SearchBox.Size = new Size(128, 23);
             Ingredient_SearchBox.TabIndex = 43;
+            Ingredient_SearchBox.TextChanged += IngredientSearchBarSelectionChanged;
             // 
             // ManageIngredientsView
             // 

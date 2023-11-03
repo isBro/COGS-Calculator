@@ -131,5 +131,21 @@ namespace COGS_Calculator.Services
             return cost;
         }
 
+
+        public static double GetMenuItemCost(Dictionary<string, double> inputRecipe)
+        {
+
+            double outputCost = 0;
+
+            foreach(var key in inputRecipe.Keys)
+            {
+                Ingredient tempIngredient = DB_Connection.GetIngredient(key);
+                double tempCost = inputRecipe[key] * tempIngredient.UnitCost;
+                outputCost += tempCost;
+            }
+
+            return outputCost;
+
+        }
     }
 }

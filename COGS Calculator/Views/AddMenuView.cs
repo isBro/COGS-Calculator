@@ -33,21 +33,27 @@ namespace COGS_Calculator
 
             if (string.IsNullOrWhiteSpace(MenuNameTextBox.Text))
             {
-
+                MessageBox.Show("Name cannot be blank");
+                return;
             }
 
             if (string.IsNullOrWhiteSpace(PersonCountTextBox.Text)){
+
+                MessageBox.Show("Person Count cannot be blank");
+                return;
 
             }
 
             if (string.IsNullOrWhiteSpace(NotesTextBox.Text))
             {
-
+                MessageBox.Show("Notes cannot be blank");
+                return;
             }
 
             if (!int.TryParse(PersonCountTextBox.Text, out int Result))
             {
-
+                MessageBox.Show("Please use a valid value for Person Count");
+                return;
             }
 
 

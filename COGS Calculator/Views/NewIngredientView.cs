@@ -25,26 +25,33 @@ namespace COGS_Calculator.Views
 
             if (string.IsNullOrWhiteSpace(IngredientNameTextBox.Text))
             {
-
+                MessageBox.Show("Name cannot be blank");
+                return;
             }
 
             if (string.IsNullOrWhiteSpace(QuantityTextBox.Text)){
+
+                MessageBox.Show("Quantity cannot be blank");
+                return;
 
             }
 
             if (string.IsNullOrWhiteSpace(CostTextBox.Text))
             {
-
+                MessageBox.Show("Cost cannot be blank");
+                return;
             }
 
             if (!double.TryParse(CostTextBox.Text, out double Result))
             {
-
+                MessageBox.Show("Please enter a valid value for Cost");
+                return;
             }
 
             if (!double.TryParse(QuantityTextBox.Text, out double result))
             {
-
+                MessageBox.Show("Please enter a valid value for Quantity");
+                return;
             }
 
             double quantity = double.Parse(QuantityTextBox.Text);
@@ -55,6 +62,8 @@ namespace COGS_Calculator.Views
             ManageIngredientsView manageIngredientsView = new ManageIngredientsView();
             manageIngredientsView.MdiParent = this.ParentForm;
             manageIngredientsView.Show();
+
+            MessageBox.Show("Ingredient Added!");
             this.Close();
         }
 

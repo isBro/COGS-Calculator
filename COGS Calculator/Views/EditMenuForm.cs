@@ -43,7 +43,31 @@ namespace COGS_Calculator.Views
 
         private void Save_Menu_Button_Click(object sender, EventArgs e)
         {
-            //exception handling needed
+            if (string.IsNullOrWhiteSpace(MenuNameTextBox.Text))
+            {
+                MessageBox.Show("Name cannot be blank");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(PersonCountTextBox.Text))
+            {
+
+                MessageBox.Show("Person Count cannot be blank");
+                return;
+
+            }
+
+            if (string.IsNullOrWhiteSpace(NotesTextBox.Text))
+            {
+                MessageBox.Show("Notes cannot be blank");
+                return;
+            }
+
+            if (!int.TryParse(PersonCountTextBox.Text, out int Result))
+            {
+                MessageBox.Show("Please use a valid value for Person Count");
+                return;
+            }
 
 
             menu.PersonCount = int.Parse($"{PersonCountTextBox.Text}");
@@ -51,6 +75,8 @@ namespace COGS_Calculator.Views
 
 
             DB_Connection.UpdateMenu(menu.Id, menu.MenuName, menu.PersonCount, menu.MenuNotes, menu.MenuItems);
+
+            MessageBox.Show("Menu successfully saved.");
 
             ManageMenuView manageMenuView = new();
             manageMenuView.MdiParent = this.ParentForm;

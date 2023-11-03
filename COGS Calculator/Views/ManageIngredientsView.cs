@@ -23,6 +23,7 @@ namespace COGS_Calculator
         public static int Ingredient_Id;
         public bool selectionChanged = false;
         public Ingredient ingredient = new Ingredient();
+        public List<Ingredient> IngredientList = new();
 
 
 
@@ -30,6 +31,41 @@ namespace COGS_Calculator
         {
             try
             {
+
+
+                if (string.IsNullOrWhiteSpace(IngredientNameTextBox.Text))
+                {
+                    MessageBox.Show("Name cannot be blank");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(QuantityTextBox.Text))
+                {
+
+                    MessageBox.Show("Quantity cannot be blank");
+                    return;
+
+                }
+
+                if (string.IsNullOrWhiteSpace(CostTextBox.Text))
+                {
+                    MessageBox.Show("Cost cannot be blank");
+                    return;
+                }
+
+                if (!double.TryParse(CostTextBox.Text, out double Result))
+                {
+                    MessageBox.Show("Please enter a valid value for Cost");
+                    return;
+                }
+
+                if (!double.TryParse(QuantityTextBox.Text, out double result))
+                {
+                    MessageBox.Show("Please enter a valid value for Quantity");
+                    return;
+                }
+
+
                 DB_Connection.UpdateIngredient(Ingredient_Id, IngredientNameTextBox.Text, double.Parse(QuantityTextBox.Text), UoMComboBox.Text, double.Parse(CostTextBox.Text), CategoryComboBox.Text);
                 MessageBox.Show("Update Saved");
             }
@@ -59,8 +95,10 @@ namespace COGS_Calculator
         private void Reload_Data()
         {
 
+            IngredientList = DB_Connection.All_Ingredients;
+
             DB_Connection.SyncIngredients();
-            var IngredientsBindingList = new BindingList<Ingredient>(DB_Connection.All_Ingredients);
+            var IngredientsBindingList = new BindingList<Ingredient>(IngredientList);
             var IngredientsSource = new BindingSource(IngredientsBindingList, null);
 
             IngredientsDataGridView1.DataSource = IngredientsSource;
@@ -141,10 +179,33 @@ namespace COGS_Calculator
             CostTextBox.Text = ingredient.UnitCost.ToString();
             CategoryComboBox.Text = ingredient.Category;
 
+        }
+
+        private void IngredientSearchBarSelectionChanged(object sender, EventArgs e)
+        {
+
+            IngredientList = DB_Connection.All_Ingredients.Where(Ingredient => Ingredient.Name.ToLower().StartsWith(Ingredient_SearchBox.Text.ToLower())).ToList();
+
+            var IngredientsBindingList = new BindingList<Ingredient>(IngredientList);
+            var IngredientsSource = new BindingSource(IngredientsBindingList, null);
+
+            IngredientsDataGridView1.DataSource = IngredientsSource;
+
+            if (IngredientList.Count != 0)
+            {
+                Ingredient_Id = int.Parse($"{IngredientsDataGridView1.SelectedCells[0].Value}");
 
 
+                ingredient = DB_Connection.GetIngredient(Ingredient_Id);
 
+                IdTextBox.Text = Ingredient_Id.ToString();
+                IngredientNameTextBox.Text = ingredient.Name;
+                QuantityTextBox.Text = ingredient.Quantity.ToString();
+                UoMComboBox.Text = ingredient.UoM;
+                CostTextBox.Text = ingredient.UnitCost.ToString();
+                CategoryComboBox.Text = ingredient.Category;
 
+            }
         }
     }
 }

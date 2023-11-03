@@ -107,6 +107,7 @@
             Menu_SearchBox.Name = "Menu_SearchBox";
             Menu_SearchBox.Size = new Size(100, 23);
             Menu_SearchBox.TabIndex = 43;
+            Menu_SearchBox.TextChanged += MenuSearchBarTextChanged;
             // 
             // ManageMenuView
             // 

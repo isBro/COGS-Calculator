@@ -47,16 +47,20 @@ namespace COGS_Calculator.Views
 
             if (string.IsNullOrWhiteSpace(Name_TextBox.Text))
             {
-
+                MessageBox.Show("Name cannot be blank");
+                return;
             }
 
-            if (string.IsNullOrWhiteSpace(TotalCost_TextBox.Text)){
-
+            if (string.IsNullOrWhiteSpace(TotalCost_TextBox.Text))
+            {
+                MessageBox.Show("Cost cannot be blank");
+                return;
             }
 
             if (!double.TryParse(TotalCost_TextBox.Text, out double Result))
             {
-
+                MessageBox.Show("Please use a valid entry for TotalCost");
+                return;
             }
 
 
@@ -69,6 +73,8 @@ namespace COGS_Calculator.Views
             try
             {
                 DB_Connection.InsertMenuItem(newMenuItem.Name, newMenuItem.TotalCost, newMenuItem.IsPopular, newRecipe);
+
+                MessageBox.Show("Menu Item was saved.");
                 this.Close();
             }
             catch (Exception ex)

@@ -173,21 +173,13 @@ namespace COGS_Calculator.Services
 
             try
             {
+
+
+                All_Ingredients.Remove(GetIngredient(id));
+                
                 string delete_Ingredient = $"DELETE FROM ingredient WHERE id = {id}";
                 MySqlCommand cmd = new(delete_Ingredient, Conn);
                 cmd.ExecuteNonQuery();
-
-
-                foreach (Ingredient item in All_Ingredients)
-                {
-                    if (item.Id == id)
-                    {
-                        All_Ingredients.Remove(item);
-                        cmd.ExecuteNonQuery();
-                    }
-
-                }
-
 
 
 
@@ -265,7 +257,7 @@ namespace COGS_Calculator.Services
             double NewCost = cost;
             string NewCategory = category;
 
-            string updateString = $"UPDATE ingredient SET Quantity = {quantity}, UoM = '{uom}', Cost = {cost}, Category = '{category}', LastUpdated - '{DateTime.UtcNow.ToLocalTime().ToString(format)}', LastUpdatedBy = '{CurrentUser}' WHERE ID = {id} ";
+            string updateString = $"UPDATE ingredient SET Quantity = {quantity}, UoM = '{uom}', Cost = {cost}, Category = '{category}', LastUpdated = '{DateTime.UtcNow.ToLocalTime().ToString(format)}', LastUpdatedBy = '{CurrentUser}' WHERE ID = {id} ";
             MySqlCommand Update_cmd = new(updateString, Conn);
 
 
@@ -282,6 +274,8 @@ namespace COGS_Calculator.Services
 
 
                 Update_cmd.ExecuteNonQuery();
+
+            All_Ingredients.Remove(GetIngredient(id));
 
 
 
@@ -372,6 +366,8 @@ namespace COGS_Calculator.Services
 
             try
             {
+
+                All_Ingredients.Clear();
                 string GetIngredients = "SELECT * FROM ingredient";
                 MySqlCommand cmd = new(GetIngredients, Conn);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -495,25 +491,25 @@ namespace COGS_Calculator.Services
         public static void DeleteMenuItem(int id)
         {
 
+            string menu_Item_Name = GetMenuItem(id).Name;
+
             try
             {
+              
+
                 string deleteMenuItem = $"DELETE FROM menu_item WHERE Id = {id}";
                 MySqlCommand cmd = new(deleteMenuItem, Conn);
                 cmd.ExecuteNonQuery();
 
-                foreach (Menu_Item item in All_Menu_Items)
-                {
-                    if (item.Id == id)
-                    {
-                        All_Menu_Items.Remove(item);
-                    }
-                }
+             
 
-                string menu_Item_Name = GetMenuItem(id).Name;
+               
 
                 string dropMenuItemTable = $"DROP TABLE {menu_Item_Name.ToLower()}_recipe;";
                 MySqlCommand dropMenuItemCommand = new(dropMenuItemTable, Conn);
                 dropMenuItemCommand.ExecuteNonQuery();
+
+                All_Menu_Items.Remove(GetMenuItem(id));
             }
 
             catch (Exception ex)
@@ -607,6 +603,8 @@ namespace COGS_Calculator.Services
 
         public static void SyncMenuItems()
         {
+
+            All_Menu_Items.Clear();
             string getMenuItems = "SELECT * FROM menu_item";
             MySqlCommand cmd = new(getMenuItems, Conn);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -628,6 +626,8 @@ namespace COGS_Calculator.Services
                 newMenuItem.Name = currentName;
                 newMenuItem.TotalCost = double.Parse(currentTotalCost);
                 newMenuItem.IsPopular = b_check(int.Parse(currentIsPopular));
+
+                
 
                 if (!CheckMenuItem(newMenuItem.Id)){
 
@@ -777,7 +777,7 @@ namespace COGS_Calculator.Services
 
         public static void SyncMenus()
         {
-
+            DB_Connection.All_Menus.Clear();
             string getMenuCount = "SELECT COUNT(*) FROM menu;";
             MySqlCommand getMenuCountCommand = new(getMenuCount, Conn);
             Object countResult = getMenuCountCommand.ExecuteScalar();

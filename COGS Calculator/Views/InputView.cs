@@ -66,12 +66,13 @@ namespace COGS_Calculator.Views
             tempQuantity = double.Parse(InputTextBox.Text);
 
             if (string.IsNullOrWhiteSpace(InputTextBox.Text)) {
-                /// MESSAGE BOX
+                MessageBox.Show("Input cannot be blank");
                 return;
             }
             if (double.TryParse(InputTextBox.Text, out double result))
             {
-
+                MessageBox.Show("Please enter a valid quantity");
+                return;
             }
 
             if (newMenuInputBool)

@@ -33,7 +33,9 @@ namespace COGS_Calculator
 
         private void ReloadData()
         {
-            var AllMenuBindingList = new BindingList<Menu>(DB_Connection.All_Menus);
+
+            allMenus = DB_Connection.All_Menus;
+            var AllMenuBindingList = new BindingList<Menu>(allMenus);
             var AllMenuBindingSource = new BindingSource(AllMenuBindingList, null);
 
             AllMenusDataGridView.DataSource = AllMenuBindingSource;
@@ -74,12 +76,14 @@ namespace COGS_Calculator
         private void DeleteMenuButton_Click(object sender, EventArgs e)
         {
             string message = "This cannot be undone. Are you sure you want to delete this menu?";
-            DialogResult = MessageBox.Show(message,"Are you sure?",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            DialogResult = MessageBox.Show(message, "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (DialogResult== DialogResult.Yes)
+            if (DialogResult == DialogResult.Yes)
             {
                 Menu menu = DB_Connection.GetMenu(menuId);
                 DB_Connection.DeleteMenu(menuId, menu.MenuName);
+
+                MessageBox.Show("Menu successfully deleted.");
             }
 
             ReloadData();
@@ -110,6 +114,22 @@ namespace COGS_Calculator
             editMenuForm.MdiParent = this.ParentForm;
             editMenuForm.Show();
             this.Close();
+        }
+
+        private void MenuSearchBarTextChanged(object sender, EventArgs e)
+        {
+
+
+            allMenus = DB_Connection.All_Menus.Where(Menu=> Menu.MenuName.ToLower().StartsWith(Menu_SearchBox.Text.ToLower())).ToList();
+            var AllMenuBindingList = new BindingList<Menu>(allMenus);
+            var AllMenuBindingSource = new BindingSource(AllMenuBindingList, null);
+
+            AllMenusDataGridView.DataSource = AllMenuBindingSource;
+
+            if (allMenus.Count != 0)
+            {
+                menuId = int.Parse($"{AllMenusDataGridView.SelectedCells[0].Value}");
+            }
         }
     }
 }
