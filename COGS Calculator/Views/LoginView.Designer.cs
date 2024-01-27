@@ -37,37 +37,40 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(176, 94);
+            label1.Location = new Point(201, 125);
             label1.Name = "label1";
-            label1.Size = new Size(60, 15);
+            label1.Size = new Size(75, 20);
             label1.TabIndex = 0;
             label1.Text = "Welcome!";
             // 
             // userNameTextBox
             // 
-            userNameTextBox.Location = new Point(118, 129);
+            userNameTextBox.Location = new Point(135, 172);
+            userNameTextBox.Margin = new Padding(3, 4, 3, 4);
             userNameTextBox.Name = "userNameTextBox";
             userNameTextBox.PlaceholderText = "Username";
-            userNameTextBox.Size = new Size(153, 23);
+            userNameTextBox.Size = new Size(174, 27);
             userNameTextBox.TabIndex = 1;
-            userNameTextBox.Text = "Operator";
+            userNameTextBox.Text = "Joe";
             // 
             // passwordTextBox
             // 
             passwordTextBox.HideSelection = false;
-            passwordTextBox.Location = new Point(118, 174);
+            passwordTextBox.Location = new Point(135, 232);
+            passwordTextBox.Margin = new Padding(3, 4, 3, 4);
             passwordTextBox.Name = "passwordTextBox";
             passwordTextBox.PlaceholderText = "Password";
-            passwordTextBox.Size = new Size(153, 23);
+            passwordTextBox.Size = new Size(174, 27);
             passwordTextBox.TabIndex = 2;
             passwordTextBox.Text = "Passw0rd!";
             passwordTextBox.UseSystemPasswordChar = true;
             // 
             // LoginButton
             // 
-            LoginButton.Location = new Point(156, 225);
+            LoginButton.Location = new Point(178, 300);
+            LoginButton.Margin = new Padding(3, 4, 3, 4);
             LoginButton.Name = "LoginButton";
-            LoginButton.Size = new Size(75, 23);
+            LoginButton.Size = new Size(86, 31);
             LoginButton.TabIndex = 3;
             LoginButton.Text = "Go";
             LoginButton.UseVisualStyleBackColor = true;
@@ -75,13 +78,14 @@
             // 
             // LoginView
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(402, 329);
+            ClientSize = new Size(459, 439);
             Controls.Add(LoginButton);
             Controls.Add(passwordTextBox);
             Controls.Add(userNameTextBox);
             Controls.Add(label1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "LoginView";
             Text = "LoginView";
             ResumeLayout(false);

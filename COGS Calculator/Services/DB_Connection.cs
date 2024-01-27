@@ -25,7 +25,7 @@ namespace COGS_Calculator.Services
         {
             try
             {
-                string constr = ConfigurationManager.ConnectionStrings["local_db"].ConnectionString;
+                string constr = ConfigurationManager.ConnectionStrings["connection1"].ConnectionString;
                 Conn = new MySqlConnection(constr);
                 Conn.Open();
                 //MessageBox.Show("SUCCESS");
@@ -91,7 +91,7 @@ namespace COGS_Calculator.Services
         {
 
 
-            string User_q = $"SELECT * FROM Users WHERE User_Name = '{userName}' AND Password = '{password}' ";
+            string User_q = $"SELECT * FROM Users WHERE Name = '{userName}' AND Password = '{password}' ";
             MySqlCommand findUser = new MySqlCommand(User_q, Conn);
             object User_Result = findUser.ExecuteScalar();
 
@@ -130,6 +130,8 @@ namespace COGS_Calculator.Services
 
 
         #endregion
+
+
 
 
         #region Ingredient Methods

@@ -29,11 +29,12 @@ namespace COGS_Calculator
 
         private void Save_Menu_Button_Click(object sender, EventArgs e)
         {
-            // exception handling needed
+          
 
             if (string.IsNullOrWhiteSpace(MenuNameTextBox.Text))
             {
                 MessageBox.Show("Name cannot be blank");
+
                 return;
             }
 
@@ -124,10 +125,6 @@ namespace COGS_Calculator
                 Remove_Menu_Item_Button.Enabled = false;
             }
 
-            if (allAvailableItems.Count < 0)
-            {
-                AddMenu_Item_Button.Enabled = false;
-            }
             else
             {
                 selectedMenuItem = DB_Connection.GetMenuItem(int.Parse($"{AllMenu_ItemDataGrid.SelectedCells[0].Value}"));

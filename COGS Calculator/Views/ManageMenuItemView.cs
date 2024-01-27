@@ -255,8 +255,15 @@ namespace COGS_Calculator
 
             if (DB_Connection.All_Menu_Items.Count > 0)
             {
+                // List is empty due to no available ingredients so throwing an exceptiion here
+                if (ingredientList.Count > 0)
+                {
 
-                ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+                    ingredient = DB_Connection.GetIngredient(int.Parse($"{All_IngredientsView.SelectedCells[0].Value}"));
+
+
+                }
+                
 
                 currentMenuItem = DB_Connection.GetMenuItem(int.Parse($"{All_Menu_Items_View.SelectedCells[0].Value}"));
                 currentRecipe = currentMenuItem.Recipe;
